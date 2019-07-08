@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>KenyinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+  <meta name="description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta property="og:type" content="website">
+<meta property="og:title" content="KenyinBlog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="KenyinBlog">
+<meta property="og:description" content="千里之行，始于足下；不积硅步，无以至千里">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="KenyinBlog">
+<meta name="twitter:description" content="千里之行，始于足下；不积硅步，无以至千里">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="KenyinBlog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -151,6 +154,234 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-记录Linux命令2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/07/记录Linux命令2/">记录Linux基础命令（二）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/07/记录Linux命令2/" class="archive-article-date">
+  	<time datetime="2019-07-07T14:08:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h1><h2 id="文件类型权限"><a href="#文件类型权限" class="headerlink" title="文件类型权限"></a>文件类型权限</h2><pre><code>-rw-------.     1         root     root  1574 Jun 21 22:35 anaconda-ks.cfg
+文件类型权限    连接    所有者  所有组
+1.在文件类型权限中，第一位表示文件类型
+   “-”代表这是一个文件，“d”代表这是一个目录
+   后面9位表示所有组的权限划分，每三位代表一个组的权限。
+   r:可读；w：可写；x：可执行。
+   这9位，前三位表示u(user)-所有者；中间三位表示g(group)-同组用户；最后三位表示其他人o(other)。
+
+
+2.修改文件的权限
+ -》通过字符修改：添加就是+，去掉权限就是-
+         范例：chmod u+x password  让password的所有者添加可执行的权限。
+ -》通过数字修改：rwx等价三位二进制
+     r=4,w=2,x=1
+         范例：chomd 777 password 所有人拥有所有权限</code></pre><hr>
+<h2 id="配置普通用户进行命令授权，允许越权执行命令"><a href="#配置普通用户进行命令授权，允许越权执行命令" class="headerlink" title="配置普通用户进行命令授权，允许越权执行命令"></a>配置普通用户进行命令授权，允许越权执行命令</h2><pre><code>因为有些命令需要root权限才能执行，但是一般人是无权使用root账号，所以越权使用命令需要root授权。
+以root身份使用visudo
+visudo：用于配置哪些用户允许越权执行哪些命令
+            原理：通过vi编辑器修改了一个配置文件
+            98行：root用户的权限
+                root    ALL=(ALL)       ALL
+                用户    从什么地方登陆=（以什么身份）     执行什么命令
+            但是这种越权的方式还需要输入密码，想越权使用命令不需要输入密码则
+                root    ALL=(ALL)       NOPASSWD:ALL
+                用户    从什么地方登陆=（以什么身份）     执行什么命令
+
+配置结束后，该用户越权使用命令时则在命令前加上sudo 
+        范例：sudo vim $filename
+
+注意事项：
+    1-所有系统自带的目录以及配置文件不要随意修改权限
+        对于Linux来说，所有系统自带的都是默认的，一旦被修改，恶意篡改
+        导致功能失效
+
+    2-根据需求一般只修改权限，不要随意更改所属用户以及所属组</code></pre><hr>
+<h2 id="常用的命令符号"><a href="#常用的命令符号" class="headerlink" title="常用的命令符号"></a>常用的命令符号</h2><p>常见的符号命令：<br>        .：表示当前目录<br>        ..：表示上一级目录<br>        | : 用于传输数据流的符号，可以将上个命令的输出作为下个命令的输入<br>            cat /etc/passwd | grep ‘:[0-9]:[0-9]:’</p>
+<pre><code>    一般管道符都跟grep命令连用
+    grep命令用于过滤：
+        grep  过滤的表达式/支持正则  文件
+        grep &apos;root&apos; passwd 
+        grep &apos;:[0-9]:[0-9]:&apos; passwd 
+~：代表家目录
+    cd ~
+    直接回到家目录
+        如果是root用户：/root
+        如果是haitong用户：/home/haitong
+&gt;：输出重定向，表示覆盖
+&gt;&gt;：输出重定向，表示追加
+&lt;：输入重定向
+    stdin/stdout
+
+    echo &quot;my name is Frank&quot; &gt; passwd 
+&amp;：后台运行
+    command &amp;
+\：换行符
+    一般用于命令过长，一行不容易输入，分多行输入</code></pre><hr>
+<h2 id="磁盘管理和软件管理"><a href="#磁盘管理和软件管理" class="headerlink" title="磁盘管理和软件管理"></a>磁盘管理和软件管理</h2><pre><code>-》认识Linux文件系统与硬盘之间的关系
+假设有一个硬盘，容量为1T
+    windows-----&gt;分盘：C盘 100g  D盘 400g .....-----&gt;文件系统：数据存储在相应的盘符下
+
+    linux------&gt;分区：主分区（位于硬盘的最开始，MBR扇区的位置，数据在计算机启动时会自动被BIOS读取并执行），最多允许有四个。类似于C盘
+                      拓展分区（主分区以外的分区总和，用户构建逻辑分区），C盘以外的地方。
+                      常见3+1，2+1。
+        -------&gt;目录：一个分区挂载linux的一个目录
+                    将一个分区a挂载在/下
+                    那么只要是/中存储的数据就都在a分区中
+                    将一个分区b挂载在/opt目录下
+                    那么只要是/opt目录下的所有数据都存储在b分区中
+        --------&gt;文件系统：数据存储在目录下
+
+-》磁盘管理命令
+    Linux中的每一个硬件都对应一个文件
+    fdisk：用于管理linux中所有的物理硬盘以及分区
+        -l：列举当前所有的硬盘以及分区
+        fdisk /dev/sda：直接管理该硬盘设备
+     df -h：用于查看Linux中的所有挂载情况
+
+-》系统管理命令
+    ifconfig：用于查看以及配置网络
+    route -n：查看路由
+    service：用于管理服务的
+        service 服务名称  start|stop|restart|status
+        关闭防火墙：
+            service iptables stop
+        重启网络服务
+            service network restart
+    chkconfig：配置开机启动项
+        设置防火墙不开机自启动
+            chkconfig iptables off
+        设置防火墙开机自启动
+            chkconfig iptables on
+        查看服务的开机自启动装填
+            chkconfig iptables --list
+    netstat -atunlp ：查看当前所有的tcp以及udp端口的信息
+    top：类似于windows上色任务管理器
+        动态监控资源情况，按q退出
+    ps：process，查看进程
+        ps -ef 
+    kill：用于关闭进程或者发送信号
+        kill -USR1 nginx_pid    ：重新加载nginx的日志文件
+
+        强制关闭进程：
+            kill -9 pid
+    jps：jdk中带有的命令，用于查看所有java进程的
+
+-》软件管理
+    -》windows：
+        exe/msi/zip（免安装）/jar包
+    -》Linux
+        rpm：Redhat系列的linux的安装包格式
+        dpkg：Debian系列的Linux的安装包格式
+        源码：编译安装                            --大数据中少部分是这个
+            开发源码    编译    运行
+            java：
+                maven编译：
+                    mvn clean
+                    mvn complie
+                    mvn package
+                    mvn install
+            C、C++
+                -》./configure  预编译
+                -》make            编译
+                -》make install    安装
+
+        压缩：免安装，解压即可                    --大数据中大部分是这个
+
+    -》rpm包的安装方式：
+        -》手动rpm本地包安装：                    类似于不使用Maven开发项目
+            a.准备好软件的本地xxx.rpm的软件包
+            b.使用rpm命令来进行安装
+
+            -》很大的缺点，一般不使用该方式
+                -》软件安装时需要有依赖包
+                -》需要提前准备所有的依赖环境包，并且按顺序安装
+
+                我想安装：mysql
+                    a.下载mysql的rpm包，然后安装
+                    报错：缺少mysql的path包
+                        下载mysql的path包安装
+                    报错：缺少mysql的tools包
+                        下载mysql的tools包安装
+                    报错：缺少mysql的lib包
+                    ……
+
+        -》使用远程或者本地仓库的方式来安装：yum    类似使用Maven开发项目
+            a.配置对应的yum的仓库源
+            b.使用yum命令进行安装
+
+            安装mysql
+                yum install -y mysql-server
+            启动mysql：
+                service mysqld start 
+            设置管理员密码：
+                mysqladmin -u root password &apos;123456&apos;
+            登录
+                mysql -uroot -p</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/07/记录Linux命令2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-记录Linux基础命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
