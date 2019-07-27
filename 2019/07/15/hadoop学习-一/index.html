@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="KenyinBlog">
 <meta property="og:description" content="Hadoop分布式系统学习–HA环境搭建 分布式系统的效果需要在集群上才明显，所以我们需要搭建好Linux集群环境–至少搭建三台Linux机器。Linux安装过程则不再赘述。 值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户Hadoop安装和配置上传">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-27T07:36:26.840Z">
+<meta property="og:updated_time" content="2019-07-27T14:12:31.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop学习(一)">
 <meta name="twitter:description" content="Hadoop分布式系统学习–HA环境搭建 分布式系统的效果需要在集群上才明显，所以我们需要搭建好Linux集群环境–至少搭建三台Linux机器。Linux安装过程则不再赘述。 值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户Hadoop安装和配置上传">
@@ -179,7 +179,7 @@
 <p>分布式系统的效果需要在集群上才明显，所以我们需要搭建好Linux集群环境–至少搭建三台Linux机器。Linux安装过程则不再赘述。</p>
 <h2 id="值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户"><a href="#值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户" class="headerlink" title="值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户"></a>值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户</h2><h2 id="Hadoop安装和配置"><a href="#Hadoop安装和配置" class="headerlink" title="Hadoop安装和配置"></a>Hadoop安装和配置</h2><h3 id="上传文件及解压"><a href="#上传文件及解压" class="headerlink" title="上传文件及解压"></a>上传文件及解压</h3><hr>
 <p>创建modules、tools目录存放上传的tar包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /opt/datas</span><br><span class="line">sudo mkdir /opt/modules</span><br><span class="line">sudo mkdir /opt/tools</span><br><span class="line">sudo chown -R haitong:$(你自己的用户名) /opt/modules</span><br><span class="line">sudo chown -R haitong:$(你自己的用户名) /opt/datas</span><br><span class="line">sudo chown -R haitong:$(你自己的用户名) /opt/tools</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /opt/datas</span><br><span class="line">sudo mkdir /opt/modules</span><br><span class="line">sudo mkdir /opt/tools</span><br><span class="line">sudo chown -R $(你自己的用户名):$(你自己的用户名) /opt/modules</span><br><span class="line">sudo chown -R $(你自己的用户名):$(你自己的用户名) /opt/datas</span><br><span class="line">sudo chown -R $(你自己的用户名):$(你自己的用户名) /opt/tools</span><br></pre></td></tr></table></figure>
 
 <p>到 tools目录下把hadoop和zookeeper的tar包上传到tools目录下，然后解压到modules目录中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf /opt/tools/hadoop-2.7.3.tar.gz -C /opt/modules/ </span><br><span class="line">tar -zxvf /opt/tools/zookeeper-3.4.6.tar.gz -C /opt/modules/</span><br></pre></td></tr></table></figure>
@@ -449,11 +449,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
             
             <div class="clearfix"></div>
