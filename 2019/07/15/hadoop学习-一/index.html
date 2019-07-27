@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | KenyinBlog</title>
+  <title>hadoop学习(一) | KenyinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千里之行，始于足下；不积硅步，无以至千里">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KenyinBlog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="Hadoop分布式系统学习–HA环境搭建 分布式系统的效果需要在集群上才明显，所以我们需要搭建好Linux集群环境–至少搭建三台Linux机器。Linux安装过程则不再赘述。 值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户Hadoop安装和配置上传">
+<meta name="keywords" content="Hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop学习(一)">
+<meta property="og:url" content="http://yoursite.com/2019/07/15/hadoop学习-一/index.html">
 <meta property="og:site_name" content="KenyinBlog">
-<meta property="og:description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta property="og:description" content="Hadoop分布式系统学习–HA环境搭建 分布式系统的效果需要在集群上才明显，所以我们需要搭建好Linux集群环境–至少搭建三台Linux机器。Linux安装过程则不再赘述。 值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户Hadoop安装和配置上传">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-27T07:36:26.840Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KenyinBlog">
-<meta name="twitter:description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta name="twitter:title" content="hadoop学习(一)">
+<meta name="twitter:description" content="Hadoop分布式系统学习–HA环境搭建 分布式系统的效果需要在集群上才明显，所以我们需要搭建好Linux集群环境–至少搭建三台Linux机器。Linux安装过程则不再赘述。 值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户Hadoop安装和配置上传">
   
     <link rel="alternative" href="/atom.xml" title="KenyinBlog" type="application/atom+xml">
   
@@ -153,36 +155,97 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-hadoop学习-一" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/15/hadoop学习-一/" class="archive-article-date">
-  	<time datetime="2019-07-15T04:22:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/15/hadoop学习-一/">hadoop学习(一)</a>
+    <h1 class="article-title" itemprop="name">
+      hadoop学习(一)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/07/15/hadoop学习-一/" class="archive-article-date">
+  	<time datetime="2019-07-15T04:22:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Hadoop分布式系统学习–HA环境搭建"><a href="#Hadoop分布式系统学习–HA环境搭建" class="headerlink" title="Hadoop分布式系统学习–HA环境搭建"></a>Hadoop分布式系统学习–HA环境搭建</h1><hr>
+<p>分布式系统的效果需要在集群上才明显，所以我们需要搭建好Linux集群环境–至少搭建三台Linux机器。Linux安装过程则不再赘述。</p>
+<h2 id="值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户"><a href="#值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户" class="headerlink" title="值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户"></a>值得一提的是，三台服务器搭建好后，要可以相互ping通，相互映射好域名，相互同步时间，三台机器的用户名和密码都要一致，都配置好Java运行环境。关闭三台机器防火墙。可以把root的权限授权给普通用户</h2><h2 id="Hadoop安装和配置"><a href="#Hadoop安装和配置" class="headerlink" title="Hadoop安装和配置"></a>Hadoop安装和配置</h2><h3 id="上传文件及解压"><a href="#上传文件及解压" class="headerlink" title="上传文件及解压"></a>上传文件及解压</h3><hr>
+<p>创建modules、tools目录存放上传的tar包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /opt/datas</span><br><span class="line">sudo mkdir /opt/modules</span><br><span class="line">sudo mkdir /opt/tools</span><br><span class="line">sudo chown -R haitong:$(你自己的用户名) /opt/modules</span><br><span class="line">sudo chown -R haitong:$(你自己的用户名) /opt/datas</span><br><span class="line">sudo chown -R haitong:$(你自己的用户名) /opt/tools</span><br></pre></td></tr></table></figure>
+
+<p>到 tools目录下把hadoop和zookeeper的tar包上传到tools目录下，然后解压到modules目录中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf /opt/tools/hadoop-2.7.3.tar.gz -C /opt/modules/ </span><br><span class="line">tar -zxvf /opt/tools/zookeeper-3.4.6.tar.gz -C /opt/modules/</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="配置三台机器之间免密钥登录"><a href="#配置三台机器之间免密钥登录" class="headerlink" title="配置三台机器之间免密钥登录"></a>配置三台机器之间免密钥登录</h3><hr>
+<p>如何能让A免密码登录B<br>                1-A将自己的公钥发送给B，B保存下载<br>                2-A要登录B时，会发送一个登录请求<br>                3-B接收到A的登录请求，然后检查有没有A的公钥<br>                4-如果有，B会随机生成一个字符串，然后使用A的公钥加密，发送给A<br>                5-A拿到加密的 字符串，用私钥解密，再将解密后的字符串返回给B<br>                6-B拿到字符串与原先的字符串对比，如果一致允许A登录<br>三台机器都要执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa   //接着一路回车</span><br><span class="line">ll ~/.ssh/          //查看当前用户的公私钥：</span><br><span class="line"></span><br><span class="line">ssh-copy-id  $(第一台的主机名)</span><br><span class="line">ssh-copy-id  $(第二台的主机名)</span><br><span class="line">ssh-copy-id  $(第三台的主机名)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="修改hadoop配置文件"><a href="#修改hadoop配置文件" class="headerlink" title="修改hadoop配置文件"></a>修改hadoop配置文件</h3><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/modules/hadoop-2.7.3/datas  //创建hadoop本地临时目录</span><br><span class="line">mkdir /opt/modules/hadoop-2.7.3/journalnode  //NameNode 将元数据的变化写入journalnode，standby的NameNode负责从journalnode中读取变化，并更改自己的元数据，保持跟active的一致</span><br></pre></td></tr></table></figure>
+
+<p>修改/opt/modules/hadoop-2.7.3/etc/hadoop/core-site.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;!--指定整个HDFS唯一的入口，也是NameNode的地址--&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://$(第一台的主机名):8020&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">	&lt;!--指定Hadoop的临时本地目录--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;/opt/modules/hadoop-2.7.3/datas&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!--指定Zookeeper的地址--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;ha.zookeeper.quorum&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;$(第一台的主机名):2181,$(第一台的主机名):2181,$(第一台的主机名):2181&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>修改/opt/modules/hadoop-2.7.3/etc/hadoop/hdfs-site.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;!--配置每个文件块存储多少份，默认是3份--&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;3&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">	&lt;!--指定HDFS入口的逻辑名称--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.nameservices&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;mycluster&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!--指定两个NameNode的逻辑名称--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.ha.namenodes.mycluster&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;nn1,nn2&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!--指定两个NameNode的rpc端口--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.namenode.rpc-address.mycluster.nn1&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;$(第一台的主机名):8020&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.namenode.rpc-address.mycluster.nn2&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;$(第二台的主机名):8020&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!--指定两个NameNode的http端口--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.namenode.http-address.mycluster.nn1&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;$(第一台的主机名):50070&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.namenode.http-address.mycluster.nn2&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;$(第二台的主机名):50070&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!--指定journalnode的服务地址及存储目录--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.namenode.shared.edits.dir&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;qjournal://$(第一台的主机名):8485;$(第二台的主机名):8485;$(第三台的主机名):8485/mycluster&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.journalnode.edits.dir&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;/opt/modules/hadoop-2.7.3/journalnode&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!--指定故障转移时切换的代理类--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">	  &lt;name&gt;dfs.client.failover.proxy.provider.mycluster&lt;/name&gt;</span><br><span class="line">	  &lt;value&gt;org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!--配置隔离方式--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">      &lt;name&gt;dfs.ha.fencing.methods&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;sshfence&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">      &lt;name&gt;dfs.ha.fencing.ssh.private-key-files&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;/home/$(用户名)/.ssh/id_rsa&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">	&lt;!--开启自动切换--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;dfs.ha.automatic-failover.enabled&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>修改/opt/modules/hadoop-2.7.3/etc/hadoop/yarn-site.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;!--指定ResourceManager的地址--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;$(第三台主机名)&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;!--指定yarn上运行的程序的类型是mapreduce类型--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">	&lt;!--配置日志聚集--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;true&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;604800&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>修改/opt/modules/hadoop-2.7.3/etc/hadoop/mapred-site.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">	&lt;!--指定配置mapreduce的程序运行在yarn上--&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">	&lt;!--指定程序的历史服务--&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;$(第2台主机名):10020&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">		&lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;</span><br><span class="line">		&lt;value&gt;$(第2台主机名):19888&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>修改/opt/modules/hadoop-2.7.3/etc/hadoop/slaves<br>添加<br>$(第1台主机名)<br>$(第2台主机名)<br>$(第3台主机名)<br>hadoop-env.sh        修改JDK<br>mapred-env.sh        修改JDK</p>
+<h2 id="yarn-env-sh-修改JDK"><a href="#yarn-env-sh-修改JDK" class="headerlink" title="yarn-env.sh            修改JDK"></a>yarn-env.sh            修改JDK</h2><h3 id="修改zookeeper配置文件"><a href="#修改zookeeper配置文件" class="headerlink" title="修改zookeeper配置文件"></a>修改zookeeper配置文件</h3><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/modules/zookeeper-3.4.6/</span><br><span class="line">mv conf/zoo_sample.cfg conf/zoo.cfg   </span><br><span class="line">mkdir /opt/modules/zookeeper-3.4.6/datas</span><br></pre></td></tr></table></figure>
+
+<p>修改zoo.cfg<br>dataDir=/opt/modules/zookeeper-3.4.6/datas<br>在文件末尾添加：<br>server.1=$(第1台主机名):2888:3888<br>server.2=$(第2台主机名):2888:3888<br>server.3=$(第3台主机名):2888:3888</p>
+<p>在datas目录下创建一个文件myid，将对应的序号写入myid<br>vim datas/myid</p>
+<h2 id="第一台机器里面写1，后面两台以此类推-分发给两台机器后要修改相应的序号。"><a href="#第一台机器里面写1，后面两台以此类推-分发给两台机器后要修改相应的序号。" class="headerlink" title="第一台机器里面写1，后面两台以此类推 分发给两台机器后要修改相应的序号。"></a>第一台机器里面写1，后面两台以此类推 分发给两台机器后要修改相应的序号。</h2><h3 id="分发给其余两台机器"><a href="#分发给其余两台机器" class="headerlink" title="分发给其余两台机器"></a>分发给其余两台机器</h3><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scp -r zookeeper-3.4.6 192.168.213.135:/opt/modules/</span><br><span class="line">scp -r zookeeper-3.4.6 192.168.213.136:/opt/modules/</span><br><span class="line">			</span><br><span class="line">//一定要注意，要修改每台机器的myid文件</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="初次启动"><a href="#初次启动" class="headerlink" title="初次启动"></a>初次启动</h3><hr>
+<p>1.首先启动三台机器的zookeeper服务<br>   在zookeeper-3.4.6的目录下 执行 bin/zkServer.sh start<br>2.任选一台机器连接服务端<br>   bin/zkCli.sh<br>3.切回到hadoop-2.7.3,启动三台机器的journalnode<br>  执行sbin/hadoop-daemon.sh start journalnode<br>4.格式化HDFS，清空三台机器的datas<br>  rm -rf /opt/modules/hadoop-2.7.3/datas/*<br>  选择第一台机器进行格式化<br>  bin/hdfs namenode -format<br>5.同步第二台机器的本地元数据，在第一台机器上执行<br>  scp -r datas/* 192.168.213.135:/opt/modules/hadoop-2.7.3/datas/<br>6.格式化Zookeeper<br>  bin/hdfs zkfc -formatZK<br>7.关闭所有的journalnode</p>
+<h2 id="8-启动整个集群，在第一台机器上执行-sbin-start-dfs-sh"><a href="#8-启动整个集群，在第一台机器上执行-sbin-start-dfs-sh" class="headerlink" title="8.启动整个集群，在第一台机器上执行 sbin/start-dfs.sh"></a>8.启动整个集群，在第一台机器上执行 sbin/start-dfs.sh</h2>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -194,95 +257,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/07/15/hadoop学习-一/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/07/记录Linux命令2/" class="archive-article-date">
-  	<time datetime="2019-07-07T14:08:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-07</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/07/记录Linux命令2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">记录Linux基础命令（二）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/07/记录Linux命令2/">记录Linux基础命令（二）</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/30/记录Linux基础命令/" class="archive-article-date">
-  	<time datetime="2019-06-30T07:35:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/30/记录Linux基础命令/">记录Linux基础命令（一）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -305,8 +379,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
