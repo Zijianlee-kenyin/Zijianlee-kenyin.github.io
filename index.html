@@ -155,6 +155,229 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-hadoop学习-三" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/31/hadoop学习-三/">hadoop学习-三</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/31/hadoop学习-三/" class="archive-article-date">
+  	<time datetime="2019-07-31T04:32:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MapReduce—–分布式计算模型-框架"><a href="#MapReduce—–分布式计算模型-框架" class="headerlink" title="MapReduce—–分布式计算模型/框架"></a>MapReduce—–分布式计算模型/框架</h2><hr>
+<p>MapReduce的设计思想就是将大型数据处理任务分解成很多单个的，可以在服务器集群中并行执行的任务。</p>
+<h2 id="而这些任务的计算结果可以合并在一起来计算最终的结果。"><a href="#而这些任务的计算结果可以合并在一起来计算最终的结果。" class="headerlink" title="而这些任务的计算结果可以合并在一起来计算最终的结果。"></a>而这些任务的计算结果可以合并在一起来计算最终的结果。</h2><h2 id="MapReduce的五大阶段"><a href="#MapReduce的五大阶段" class="headerlink" title="MapReduce的五大阶段"></a>MapReduce的五大阶段</h2><h3 id="input阶段"><a href="#input阶段" class="headerlink" title="input阶段"></a>input阶段</h3><hr>
+<p>负责整个程序的输入<br>                1-默认从HDFS上读取数据，在程序中需要给定输入的地址<br>                    可以修改读取的数据源的类型：HDFS、数据库<br>                    提供API接口，可以自己实现从数据源中读取<br>                2-默认读取的输入文件的每个块会对应成每个分片<br>                    存储：block            3 block<br>                    计算：split            3 split<br>                    在后面启动task时，一个split就会启动一个task来处理<br>                        1 block = 1 split = 1 task（进程）<br>                3-默认每个分片中的数据会被转换成keyvalue对<br>                    文件中的每一行内容会变成一个keyvalue对<br>                        key：这一行在文件中的偏移量<br>                        value：这一行的内容</p>
+<hr>
+<h3 id="map阶段"><a href="#map阶段" class="headerlink" title="map阶段"></a>map阶段</h3><hr>
+<p>根据Input阶段的分片来启动对应Map task，1 split = 1 Map task<br>                分：启动多个task来并行化处理数据<br>                具体对数据进行处理的逻辑：<br>                    类：Mapper<br>                    方法：map（处理的逻辑在map方法中实现）<br>                        map方法中对数据进行处理，最终输出新的keyvalue</p>
+<pre><code>Map task会实例化Mapper类的对象，每个keyvalue对应调用一次map方法</code></pre><hr>
+<h3 id="shuffle阶段"><a href="#shuffle阶段" class="headerlink" title="shuffle阶段"></a>shuffle阶段</h3><hr>
+<p>功能：Shuffle在整个程序运行中实现了分区、分组、排序<br>        分区：就是如果有多个reduce，每个就是一个分区<br>                决定了当前这条数据会被哪个reduce进行处理<br>                默认规则：根据key的hash值对reduce个数进行取余<br>        分组：按照key进行group by<br>                key相同的keyvalue会合并为一条，value会放入同一个迭代器中<br>        排序：整个shuffle中出现多次<br>            将keyvalue对按照key的字典顺序进行排序<br>    过程：<br>        整个Shuffle阶段分为两个部分：</p>
+<pre><code>Map：处理数据
+|
+Map端的Shuffle：
+    spill：溢写
+        -》所有Map输出的数据会进入环形的内存缓冲区，默认100M
+        -》如果缓冲区的数据达到80%，就会进行分区、排序、溢写
+        -》分区：将当前数据进行标记，判断属于哪个reduce进行处理
+        -》排序：相同分区的数据会放到一起，并且按照key的字典顺序进行排序
+        -》溢写：将分区排序好的数据，写入硬盘，变成文件
+    merge：合并
+        -》当这个Maptask的数据都溢写完成，会触发合并的过程
+        -》merge：将所有的小文件合并成一个大文件
+        -》排序：在合并过程中，相同分区的数据放到一起，并且按照字典顺序排序
+Reduce端的shuffle：
+    merge：合并
+        -》从每个MapTask的文件中，获取属于自己的数据
+        -》将多个MapTask中属于自己的 数据进行合并
+        -》合并过程中依旧会进行排序
+        -》分组：将相同key的value放到同一个迭代器中
+|
+Reduce：合并
+    reduce（Text key,Iterator&lt;Intwritable&gt; values,Context context）</code></pre><p>Shuffle优化：<br>        Combiner：在Map端shuffle结束以后，先调用一次reduce方法进行聚合，然后在执行reduce端的shuffle，减少进入reduce中的数据量<br>            Map端Shuffle     Reduce端的shuffle<br>                100                100 -&gt; 50<br>                        Combiner    Reduce端的shuffle<br>                100 -&gt;    50            50 -&gt; 50</p>
+<pre><code>    MapTask的个数 &gt; ReduceTask的个数
+
+Compress：
+    将MapShuffle输出到硬盘的数据进行压缩，提高IO效率</code></pre><hr>
+<h3 id="reduce阶段"><a href="#reduce阶段" class="headerlink" title="reduce阶段"></a>reduce阶段</h3><hr>
+<p>负责启动ReduceTask，将所有Map task处理结果进行合并<br>                        合并：<br>                            reduce方法：对每个key的所有value进行合并<br>                            cleanup方法：对所有的keyvalue进行合并</p>
+<pre><code>setup        ：初始化方法，init方法
+map/reduce    ：数据处理的逻辑方法
+cleanup     ：对所有task的结果进行输出的</code></pre><hr>
+<h3 id="output阶段"><a href="#output阶段" class="headerlink" title="output阶段"></a>output阶段</h3><hr>
+<p>对输出数据通常会做压缩，节省磁盘空间<br>将reduce结果按照输出的格式写入文件中</p>
+<h2 id="按照输出文件的格式，将每个键值对结果输出一行，中间分隔符默认是‘-t’-默认调用键值对对象的toString-方法"><a href="#按照输出文件的格式，将每个键值对结果输出一行，中间分隔符默认是‘-t’-默认调用键值对对象的toString-方法" class="headerlink" title="按照输出文件的格式，将每个键值对结果输出一行，中间分隔符默认是‘\t’.默认调用键值对对象的toString()方法"></a>按照输出文件的格式，将每个键值对结果输出一行，中间分隔符默认是‘\t’.默认调用键值对对象的toString()方法</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/31/hadoop学习-三/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hadoop学习-二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/29/hadoop学习-二/">hadoop学习-二</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/29/hadoop学习-二/" class="archive-article-date">
+  	<time datetime="2019-07-29T00:20:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h1><hr>
+<p>随着大数据、数据分析、人工智能、区块链的兴起，对数据的需求前所未有的迫切。但是随着数据量的日益增大，传统<br>计算机面临着三大问题：<br>1.容量资源的问题。传统单台计算机资源毕竟有限，对大数据量的处理是力不从心。所以催生出计算机集群，用计算机分布式<br>集群来处理数据。例如YARN、Docker等把集群的资源池化，形成公共的资源、把计算任务分派到各个节点，减轻了单计算机<br>的负荷，从而解决了大数据的存储和计算问题。<br>2.容灾单点故障问题。传统单台计算机如果出现故障，那整个系统可以说是完全瘫痪了。因为即便是集群，如果没有良好的<br>备份机制和灾备切换机制，那传统计算机集群的子节点出现故障，就可以造成数据的丢失；主节点出现故障那就基本瘫痪了。<br>3.效率问题<br>传统单台计算机处理大数据量计算任务是非常耗时，如果其数据量超过了本身内存的容量就无法处理。采用分布式计算，<br>可以把大数据量的任务拆分成各个小任务让每个节点执行，最后把各个结果合并成一个最终的结果。<br>所以分布式系统采用分而治之的思想，将多台计算机抽象成一个整体，对外提供统一的服务接口；<br>将任务进行分块/分片，将子任务分派给每一个节点进行执行；</p>
+<h2 id="其中任何一个节点失效或者任务失效，整个集群将会重新分派该任务。"><a href="#其中任何一个节点失效或者任务失效，整个集群将会重新分派该任务。" class="headerlink" title="其中任何一个节点失效或者任务失效，整个集群将会重新分派该任务。"></a>其中任何一个节点失效或者任务失效，整个集群将会重新分派该任务。</h2><h1 id="分布式文件系统（存储）"><a href="#分布式文件系统（存储）" class="headerlink" title="分布式文件系统（存储）"></a>分布式文件系统（存储）</h1><hr>
+<pre><code>由上文可知，分布式系统主要有分布式存储和分布式计算两者构成。计算需要的数据可以来自分布式存储的数据，</code></pre><h2 id="而计算产生的结果也需要保存起来。"><a href="#而计算产生的结果也需要保存起来。" class="headerlink" title="而计算产生的结果也需要保存起来。"></a>而计算产生的结果也需要保存起来。</h2><h2 id="HDFS—–Hadoop实现了一个分布式文件系统，为海量的数据提供了存储"><a href="#HDFS—–Hadoop实现了一个分布式文件系统，为海量的数据提供了存储" class="headerlink" title="HDFS—–Hadoop实现了一个分布式文件系统，为海量的数据提供了存储"></a>HDFS—–Hadoop实现了一个分布式文件系统，为海量的数据提供了存储</h2><h3 id="HDFS基本原理"><a href="#HDFS基本原理" class="headerlink" title="HDFS基本原理"></a>HDFS基本原理</h3><hr>
+<p>HDFS是一个高度容错性的系统，适合部署在廉价的机器上；能提供高吞吐量的数据访问，适合大规模数据集上的应用<br>HDFS的架构原理：<br>HDFS采用master/slave架构（主从架构），一个hdfs集群包含最多包含两个namenode（一个active，一个standby）和<br>多个datanode。namenode负责文件系统的名字空间(namespace)和接收客户端的读写请求，管理所有的datanode（1.datanode是否存活；2.datanode的数据是否安全，<br>管理元数据（所有文件对应存储节点的位置））；datanode负责文件系统客户端的读写请求，在namenode的统一调度下进行数据块的创建、删除和复制。</p>
+<h2 id="集群中单一Namenode的结构大大简化了系统的架构。Namenode是所有HDFS元数据的仲裁者和管理者，这样，用户数据永远不会流过Namenode。"><a href="#集群中单一Namenode的结构大大简化了系统的架构。Namenode是所有HDFS元数据的仲裁者和管理者，这样，用户数据永远不会流过Namenode。" class="headerlink" title="集群中单一Namenode的结构大大简化了系统的架构。Namenode是所有HDFS元数据的仲裁者和管理者，这样，用户数据永远不会流过Namenode。"></a>集群中单一Namenode的结构大大简化了系统的架构。Namenode是所有HDFS元数据的仲裁者和管理者，这样，用户数据永远不会流过Namenode。</h2><h3 id="HDFS基本读写原理"><a href="#HDFS基本读写原理" class="headerlink" title="HDFS基本读写原理"></a>HDFS基本读写原理</h3><hr>
+<p>文件写入时：client向namenode发起文件写入的请求。namenode根据文件大小和文件块配置情况，返回给client它所管理部分datanode的信息，client将文件划分位<br>多个block块，并根据datanode的地址信息，按顺序写入到每一个datanode块中。<br>写：<br>            1-用户操作客户端提交写的请求<br>            2-客户端将文件进行分割成若干个块，将请求提交给NameNode<br>            3-NameNode接收客户端的请求，然后所有块对应的DataNode的地址返回给客户端<br>                {file1:block1：{node1，node2,node3},block2:{node4,node5,node6}}<br>            4-客户端将每个块挨个提交给离自己最近的DataNode（机架感知）<br>                block1 =&gt; node1 =&gt; node2 =&gt; node3<br>                block2 =&gt; node5 =&gt; node4 =&gt; node6<br>            5-全部写完，将结果通知NameNode，NameNode记录元数据</p>
+<p>文件读取：client向namenode发起文件读取的请求，NameNode返回文件存储的block块信息、及其block块所在DataNode的信息。客户端选择每个块离自己最近的datanode<br>进行下载，client将block块进行合并成原来的文件返回给用户。<br>读：<br>            1-用户操作客户端提交读的请求<br>            2-客户端将请求提交给NameNode，NameNode查询元数据<br>            3-NameNode将该文件的所有块的地址返回给客户端<br>            4-客户端选择每个块离自己最近的DataNode进行下载<br>                node1 =&gt;  block1<br>                node5 =&gt;  block2<br>            5-客户端将块进行合并成原来的文件，返回给用户</p>
+<p>所以namenode不知道每台datanode存储了哪些数据块，但是元数据知道。</p>
+<p>secondnamenode：辅助namenode实现元数据持久化的进程。<br>内存中的元数据一直在变化====持久化同步=====文件：fsimage——》每次namenode启动时就会读取，然后加载到内存中。</p>
+<p>本地元数据：fsimage<br>                每次NameNode启动加载到内存的<br>            元数据操作日志：edits<br>                每次内存中的元数据发生的变化就记录在edits文件中<br>            如何实现fsimage与内存中的 元数据一致：<br>                SecondaryNameNode：定时以及定量<br>                    fsimage（老） + edits  = fsimage(新)<br>                    合并以后edits文件会被清空</p>
+<hr>
+<h2 id="YARN——Hadoop资源管理器"><a href="#YARN——Hadoop资源管理器" class="headerlink" title="YARN——Hadoop资源管理器"></a>YARN——Hadoop资源管理器</h2><hr>
+<ol>
+<li><p>ResourceManager</p>
+<p> ResourceManager是master上的进程，负责整个分布式系统的资源管理和调度。他会处理来自client端的请求（包括提交作业/杀死作业）；启动/监控Application Master；监控NodeManager的情况，比如可能挂掉的NodeManager。</p>
+</li>
+<li><p>NodeManager</p>
+<p> 相对应的，NodeManager时处在slave节点上的进程，他只负责当前slave节点的资源管理和调度，以及task的运行。他会定期向ResourceManager回报资源/Container的情况（heartbeat）；接受来自ResourceManager对于Container的启停命令。</p>
+</li>
+<li><p>Application Master</p>
+<p> 每一个提交到集群的作业都会有一个与之对应的Application Master来负责应用程序的管理。他负责进行数据切分；为当前应用程序向ResourceManager去申请资源（也就是Container），并分配给具体的任务；与NodeManager通信，用来启停具体的任务，任务运行在Container中；而任务的监控和容错也是由Application Master来负责的。</p>
+</li>
+<li><p>Container</p>
+<p> 那么container又是什么呢？它包含了Application Master向ResourceManager申请的计算资源，比如说CPU/内存的大小，以及任务运行所需的环境变量和队任务运行情况的描述。    </p>
+</li>
+</ol>
+<p>（1）Client向ResourceManager提交作业（可以是Spark/Mapreduce作业）</p>
+<p>（2）ResourceManager会为这个作业分配一个container</p>
+<p>（3）ResourceManager与NodeManager通信，要求NodeManger在刚刚分配好的container上启动应用程序的Application Master</p>
+<p>（4）Application Master先去向ResourceManager注册，而后ResourceManager会为各个任务申请资源，并监控运行情况</p>
+<p>（5）Application Master采用轮询（polling）方式向ResourceManager申请并领取资源（通过RPC协议通信）</p>
+<p>（6）Application Manager申请到了资源以后，就和NodeManager通信，要求NodeManager启动任务<br>      最后，NodeManger启动作业对应的任务。</p>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Hdoop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/29/hadoop学习-二/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hadoop学习-一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -808,6 +1031,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Hdoop</a>
               </li>
              
               <li class="article-tag-list-item">

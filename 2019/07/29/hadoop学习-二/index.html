@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Linux | KenyinBlog</title>
+  <title>hadoop学习-二 | KenyinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千里之行，始于足下；不积硅步，无以至千里">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KenyinBlog">
-<meta property="og:url" content="http://yoursite.com/tags/Linux/index.html">
+  <meta name="description" content="分布式系统 随着大数据、数据分析、人工智能、区块链的兴起，对数据的需求前所未有的迫切。但是随着数据量的日益增大，传统计算机面临着三大问题：1.容量资源的问题。传统单台计算机资源毕竟有限，对大数据量的处理是力不从心。所以催生出计算机集群，用计算机分布式集群来处理数据。例如YARN、Docker等把集群的资源池化，形成公共的资源、把计算任务分派到各个节点，减轻了单计算机的负荷，从而解决了大数据的存储和">
+<meta name="keywords" content="Hdoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop学习-二">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/hadoop学习-二/index.html">
 <meta property="og:site_name" content="KenyinBlog">
-<meta property="og:description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta property="og:description" content="分布式系统 随着大数据、数据分析、人工智能、区块链的兴起，对数据的需求前所未有的迫切。但是随着数据量的日益增大，传统计算机面临着三大问题：1.容量资源的问题。传统单台计算机资源毕竟有限，对大数据量的处理是力不从心。所以催生出计算机集群，用计算机分布式集群来处理数据。例如YARN、Docker等把集群的资源池化，形成公共的资源、把计算任务分派到各个节点，减轻了单计算机的负荷，从而解决了大数据的存储和">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-29T16:42:33.813Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KenyinBlog">
-<meta name="twitter:description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta name="twitter:title" content="hadoop学习-二">
+<meta name="twitter:description" content="分布式系统 随着大数据、数据分析、人工智能、区块链的兴起，对数据的需求前所未有的迫切。但是随着数据量的日益增大，传统计算机面临着三大问题：1.容量资源的问题。传统单台计算机资源毕竟有限，对大数据量的处理是力不从心。所以催生出计算机集群，用计算机分布式集群来处理数据。例如YARN、Docker等把集群的资源池化，形成公共的资源、把计算任务分派到各个节点，减轻了单计算机的负荷，从而解决了大数据的存储和">
   
     <link rel="alternative" href="/atom.xml" title="KenyinBlog" type="application/atom+xml">
   
@@ -153,98 +155,209 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-hadoop学习-二" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/07/记录Linux命令2/" class="archive-article-date">
-  	<time datetime="2019-07-07T14:08:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-07</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/07/记录Linux命令2/">记录Linux基础命令（二）</a>
+    <h1 class="article-title" itemprop="name">
+      hadoop学习-二
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/07/29/hadoop学习-二/" class="archive-article-date">
+  	<time datetime="2019-07-29T00:20:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h1><hr>
+<p>随着大数据、数据分析、人工智能、区块链的兴起，对数据的需求前所未有的迫切。但是随着数据量的日益增大，传统<br>计算机面临着三大问题：<br>1.容量资源的问题。传统单台计算机资源毕竟有限，对大数据量的处理是力不从心。所以催生出计算机集群，用计算机分布式<br>集群来处理数据。例如YARN、Docker等把集群的资源池化，形成公共的资源、把计算任务分派到各个节点，减轻了单计算机<br>的负荷，从而解决了大数据的存储和计算问题。<br>2.容灾单点故障问题。传统单台计算机如果出现故障，那整个系统可以说是完全瘫痪了。因为即便是集群，如果没有良好的<br>备份机制和灾备切换机制，那传统计算机集群的子节点出现故障，就可以造成数据的丢失；主节点出现故障那就基本瘫痪了。<br>3.效率问题<br>传统单台计算机处理大数据量计算任务是非常耗时，如果其数据量超过了本身内存的容量就无法处理。采用分布式计算，<br>可以把大数据量的任务拆分成各个小任务让每个节点执行，最后把各个结果合并成一个最终的结果。<br>所以分布式系统采用分而治之的思想，将多台计算机抽象成一个整体，对外提供统一的服务接口；<br>将任务进行分块/分片，将子任务分派给每一个节点进行执行；</p>
+<h2 id="其中任何一个节点失效或者任务失效，整个集群将会重新分派该任务。"><a href="#其中任何一个节点失效或者任务失效，整个集群将会重新分派该任务。" class="headerlink" title="其中任何一个节点失效或者任务失效，整个集群将会重新分派该任务。"></a>其中任何一个节点失效或者任务失效，整个集群将会重新分派该任务。</h2><h1 id="分布式文件系统（存储）"><a href="#分布式文件系统（存储）" class="headerlink" title="分布式文件系统（存储）"></a>分布式文件系统（存储）</h1><hr>
+<pre><code>由上文可知，分布式系统主要有分布式存储和分布式计算两者构成。计算需要的数据可以来自分布式存储的数据，</code></pre><h2 id="而计算产生的结果也需要保存起来。"><a href="#而计算产生的结果也需要保存起来。" class="headerlink" title="而计算产生的结果也需要保存起来。"></a>而计算产生的结果也需要保存起来。</h2><h2 id="HDFS—–Hadoop实现了一个分布式文件系统，为海量的数据提供了存储"><a href="#HDFS—–Hadoop实现了一个分布式文件系统，为海量的数据提供了存储" class="headerlink" title="HDFS—–Hadoop实现了一个分布式文件系统，为海量的数据提供了存储"></a>HDFS—–Hadoop实现了一个分布式文件系统，为海量的数据提供了存储</h2><h3 id="HDFS基本原理"><a href="#HDFS基本原理" class="headerlink" title="HDFS基本原理"></a>HDFS基本原理</h3><hr>
+<p>HDFS是一个高度容错性的系统，适合部署在廉价的机器上；能提供高吞吐量的数据访问，适合大规模数据集上的应用<br>HDFS的架构原理：<br>HDFS采用master/slave架构（主从架构），一个hdfs集群包含最多包含两个namenode（一个active，一个standby）和<br>多个datanode。namenode负责文件系统的名字空间(namespace)和接收客户端的读写请求，管理所有的datanode（1.datanode是否存活；2.datanode的数据是否安全，<br>管理元数据（所有文件对应存储节点的位置））；datanode负责文件系统客户端的读写请求，在namenode的统一调度下进行数据块的创建、删除和复制。</p>
+<h2 id="集群中单一Namenode的结构大大简化了系统的架构。Namenode是所有HDFS元数据的仲裁者和管理者，这样，用户数据永远不会流过Namenode。"><a href="#集群中单一Namenode的结构大大简化了系统的架构。Namenode是所有HDFS元数据的仲裁者和管理者，这样，用户数据永远不会流过Namenode。" class="headerlink" title="集群中单一Namenode的结构大大简化了系统的架构。Namenode是所有HDFS元数据的仲裁者和管理者，这样，用户数据永远不会流过Namenode。"></a>集群中单一Namenode的结构大大简化了系统的架构。Namenode是所有HDFS元数据的仲裁者和管理者，这样，用户数据永远不会流过Namenode。</h2><h3 id="HDFS基本读写原理"><a href="#HDFS基本读写原理" class="headerlink" title="HDFS基本读写原理"></a>HDFS基本读写原理</h3><hr>
+<p>文件写入时：client向namenode发起文件写入的请求。namenode根据文件大小和文件块配置情况，返回给client它所管理部分datanode的信息，client将文件划分位<br>多个block块，并根据datanode的地址信息，按顺序写入到每一个datanode块中。<br>写：<br>            1-用户操作客户端提交写的请求<br>            2-客户端将文件进行分割成若干个块，将请求提交给NameNode<br>            3-NameNode接收客户端的请求，然后所有块对应的DataNode的地址返回给客户端<br>                {file1:block1：{node1，node2,node3},block2:{node4,node5,node6}}<br>            4-客户端将每个块挨个提交给离自己最近的DataNode（机架感知）<br>                block1 =&gt; node1 =&gt; node2 =&gt; node3<br>                block2 =&gt; node5 =&gt; node4 =&gt; node6<br>            5-全部写完，将结果通知NameNode，NameNode记录元数据</p>
+<p>文件读取：client向namenode发起文件读取的请求，NameNode返回文件存储的block块信息、及其block块所在DataNode的信息。客户端选择每个块离自己最近的datanode<br>进行下载，client将block块进行合并成原来的文件返回给用户。<br>读：<br>            1-用户操作客户端提交读的请求<br>            2-客户端将请求提交给NameNode，NameNode查询元数据<br>            3-NameNode将该文件的所有块的地址返回给客户端<br>            4-客户端选择每个块离自己最近的DataNode进行下载<br>                node1 =&gt;  block1<br>                node5 =&gt;  block2<br>            5-客户端将块进行合并成原来的文件，返回给用户</p>
+<p>所以namenode不知道每台datanode存储了哪些数据块，但是元数据知道。</p>
+<p>secondnamenode：辅助namenode实现元数据持久化的进程。<br>内存中的元数据一直在变化====持久化同步=====文件：fsimage——》每次namenode启动时就会读取，然后加载到内存中。</p>
+<p>本地元数据：fsimage<br>                每次NameNode启动加载到内存的<br>            元数据操作日志：edits<br>                每次内存中的元数据发生的变化就记录在edits文件中<br>            如何实现fsimage与内存中的 元数据一致：<br>                SecondaryNameNode：定时以及定量<br>                    fsimage（老） + edits  = fsimage(新)<br>                    合并以后edits文件会被清空</p>
+<hr>
+<h2 id="YARN——Hadoop资源管理器"><a href="#YARN——Hadoop资源管理器" class="headerlink" title="YARN——Hadoop资源管理器"></a>YARN——Hadoop资源管理器</h2><hr>
+<ol>
+<li><p>ResourceManager</p>
+<p> ResourceManager是master上的进程，负责整个分布式系统的资源管理和调度。他会处理来自client端的请求（包括提交作业/杀死作业）；启动/监控Application Master；监控NodeManager的情况，比如可能挂掉的NodeManager。</p>
+</li>
+<li><p>NodeManager</p>
+<p> 相对应的，NodeManager时处在slave节点上的进程，他只负责当前slave节点的资源管理和调度，以及task的运行。他会定期向ResourceManager回报资源/Container的情况（heartbeat）；接受来自ResourceManager对于Container的启停命令。</p>
+</li>
+<li><p>Application Master</p>
+<p> 每一个提交到集群的作业都会有一个与之对应的Application Master来负责应用程序的管理。他负责进行数据切分；为当前应用程序向ResourceManager去申请资源（也就是Container），并分配给具体的任务；与NodeManager通信，用来启停具体的任务，任务运行在Container中；而任务的监控和容错也是由Application Master来负责的。</p>
+</li>
+<li><p>Container</p>
+<p> 那么container又是什么呢？它包含了Application Master向ResourceManager申请的计算资源，比如说CPU/内存的大小，以及任务运行所需的环境变量和队任务运行情况的描述。    </p>
+</li>
+</ol>
+<p>（1）Client向ResourceManager提交作业（可以是Spark/Mapreduce作业）</p>
+<p>（2）ResourceManager会为这个作业分配一个container</p>
+<p>（3）ResourceManager与NodeManager通信，要求NodeManger在刚刚分配好的container上启动应用程序的Application Master</p>
+<p>（4）Application Master先去向ResourceManager注册，而后ResourceManager会为各个任务申请资源，并监控运行情况</p>
+<p>（5）Application Master采用轮询（polling）方式向ResourceManager申请并领取资源（通过RPC协议通信）</p>
+<p>（6）Application Manager申请到了资源以后，就和NodeManager通信，要求NodeManager启动任务<br>      最后，NodeManger启动作业对应的任务。</p>
+<hr>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Hdoop</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/07/29/hadoop学习-二/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/30/记录Linux基础命令/" class="archive-article-date">
-  	<time datetime="2019-06-30T07:35:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/07/31/hadoop学习-三/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          hadoop学习-三
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/15/hadoop学习-一/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hadoop学习(一)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/30/记录Linux基础命令/">记录Linux基础命令（一）</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -267,9 +380,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
