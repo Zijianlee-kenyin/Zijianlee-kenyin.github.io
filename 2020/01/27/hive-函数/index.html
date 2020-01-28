@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/7 | KenyinBlog</title>
+  <title>hive 函数 | KenyinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千里之行，始于足下；不积硅步，无以至千里">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KenyinBlog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/07/index.html">
+  <meta name="description" content="Hive 函数 行转列Concat(string A/col,strin g B/col…):返回输入字符串连接后的结果，支持任意个输入字符串；Concat_ws(separator, str1, str2…):它是一个特殊形式的concat()第一个参数剩余参数间的分隔符，分隔符可以是与剩余参数一样的字符串。如果分隔符是null，返回值也将为null，这个函数会跳过分隔符参数后的任何null和空">
+<meta name="keywords" content="hive hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hive 函数">
+<meta property="og:url" content="http://yoursite.com/2020/01/27/hive-函数/index.html">
 <meta property="og:site_name" content="KenyinBlog">
-<meta property="og:description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta property="og:description" content="Hive 函数 行转列Concat(string A/col,strin g B/col…):返回输入字符串连接后的结果，支持任意个输入字符串；Concat_ws(separator, str1, str2…):它是一个特殊形式的concat()第一个参数剩余参数间的分隔符，分隔符可以是与剩余参数一样的字符串。如果分隔符是null，返回值也将为null，这个函数会跳过分隔符参数后的任何null和空">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-01-27T08:25:32.029Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KenyinBlog">
-<meta name="twitter:description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta name="twitter:title" content="hive 函数">
+<meta name="twitter:description" content="Hive 函数 行转列Concat(string A/col,strin g B/col…):返回输入字符串连接后的结果，支持任意个输入字符串；Concat_ws(separator, str1, str2…):它是一个特殊形式的concat()第一个参数剩余参数间的分隔符，分隔符可以是与剩余参数一样的字符串。如果分隔符是null，返回值也将为null，这个函数会跳过分隔符参数后的任何null和空">
   
     <link rel="alternative" href="/atom.xml" title="KenyinBlog" type="application/atom+xml">
   
@@ -153,174 +155,187 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-hive-函数" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hive 函数
+    </h1>
+  
+
+        
+        <a href="/2020/01/27/hive-函数/" class="archive-article-date">
+  	<time datetime="2020-01-27T07:50:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-27</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hive-函数"><a href="#Hive-函数" class="headerlink" title="Hive 函数"></a>Hive 函数</h2><hr>
+<p>行转列<br>Concat(string A/col,strin g B/col…):返回输入字符串连接后的结果，支持任意个输入字符串；<br>Concat_ws(separator, str1, str2…):它是一个特殊形式的concat()<br>第一个参数剩余参数间的分隔符，分隔符可以是与剩余参数一样的字符串。如果分隔符是null，返回值也将为null，这个函数会跳过分隔符参数后的任何null和空字符串。分隔符将被加到被连接的字符串之间；<br>Collect_set(sol):函数只接收基本类型，作用是将某字段的值进行去重汇总，产生array类型字段。<br>数据：<br>刘德华    白羊座    A<br>张国荣    射手座    A<br>李易峰    白羊座    B<br>猪八戒    白羊座    A<br>凤姐    射手座    A</p>
+<p>需求：<br>射手座,A        张国荣|凤姐<br>白羊座,A        刘德华|猪八戒<br>白羊座,B        李易峰</p>
+<p>操作：使用hiveserver2进行操作（操作之前配置hive-site.xml）<br>在hive-site.xml中加入如下配置<br><property><br>        <name>hive.server2.thrift.port</name><br>        <value>1000000</value><br>    </property><br>    <property><br>        <name>hive.server2.thrift.bind.host</name><br>        <value>localhost</value><br>    </property><br>1）在master启动hiveserver2服务：bin/hiveserver2<br>2）在master新开一个窗口，执行：bin/beeline<br>3）连接hiveserver2：!connect jdbc:hive2://192.168.72.20:10000<br>4）输入用户名：root<br>5）输入密码：111111</p>
+<p>简单使用：<br>6）查询表：show tables;<br>7）使用concat操作dept1表，连接同一行的两个字段：select concat(deptid,dname) from dept1;<br>8）使用concat操作dept1表，连接同一行的两个字段并通过“，”号隔开：select concat(deptid,’,’,dname) from dept1;<br>9）使用concat_wc操作dept1表,连接同一行的两个字段并通过“，”号隔开，字段必须是string或者string类型的数组：select concat_wc(‘,’,ename,job) from emp1;<br>10）使用collect_set操作dept1表，对同一列的数据进行去重并返回一个数组：select collect_set(dname) from dept1; </p>
+<p>案例实操：<br>1）创建表<br>create table person_info(name string,constellation string,blood_type string) row format delimited fields terminated by “\t”;<br>2）加载数据<br>load data local inpath “/opt/data/person_info.txt” into table person_info;<br>3）首先先实现如下中间结果<br>中间结果：<br>射手座,A        张国荣<br>射手座,A        凤姐<br>白羊座,A        刘德华<br>白羊座,A        猪八戒<br>白羊座,B        李易峰</p>
+<p>语句：使用concat|concat_wc，demo采用concat_wc实现<br>select concat_wc(“,”,constellation,blood_type) c_b,name from person_info;<br>4）拼接成需求结果<br>第一步：select t1.c_b,collect_set(t1.name) from (select concat_wc(“,”,constellation,blood_type) c_b,name from person_info)t1 group by t1.c_b; </p>
+<p>第二步：select t1.c_b,concat_wc(“|”,collect_set(t1.name)) from (select concat_wc(“,”,constellation,blood_type) c_b,name from person_info)t1 group by t1.c_b;</p>
+<p>列转行<br>函数说明：<br>Explode(col)：将hive一列中复杂的array或者map结构拆分成多行。<br>Lateral view：<br>用法：lateral view udtf(expression) tableAlias AS columnAlias<br>解释：用于和split，explode等拆分（UDTF）函数一起使用，它能够将一列数据拆成多行数据，在此基础上可以对拆分后的数据进行聚合（UDAF）操作</p>
+<p>数据：<br>《战狼2》    战争，动作，灾难<br>《天杀》    悬疑，警匪，动作，心里，剧情<br>《大汉十三将》    悬疑，动作，灾难</p>
+<p>需求：<br>《战狼2》    战争<br>《战狼2》    动作<br>《战狼2》    灾难<br>《天杀》    悬疑<br>《天杀》    警匪<br>《天杀》    动作<br>《天杀》    心里<br>《天杀》    剧情<br>《大汉十三将》    悬疑<br>《大汉十三将》    动作<br>《大汉十三将》    灾难</p>
+<p>(1)创建表<br>create table movie_info(move string,category array<string>) row format delimited fields terminated by “\t” collection items terminated by “,”;<br>(2)加载数据<br>load data local inpath “/opt/data/movie_info.txt” into table movie_info;<br>(3)查询数据<br>select * from movie_info;<br>案例实操<br>1.select explode(category) from  movie_info;<br>2.select movie,category_name from movie_info lateral view explode(category) tmptable as category_name;<br>解释：通过炸裂的explode(category)根据category_name通过lateral view对movie_info 进行侧写产生聚合结果。</string></p>
+<p>窗口函数<br>1.相关函数说明<br>over():开辟一个窗口，此窗口针对聚合函数的含义来定，并且可以指定分析函数工作的数据窗口大小，这个数据窗口大小可能会随着行的变化而变化<br>Current row：当前行<br>n preceding：往前n行数据<br>n following：往后n行数据<br>Unbounded：起点，Unbounded preceding表示从前面的起点，Unbounded following表示后面的终点<br>Lag(col,n)：往前第n行数据<br>Lead(col,n)：往后第n行数据<br>Ntile(n):把有序分区中的行分发到指定数据组中，各个组有编号，编号从1开始，对于每一行，ntile返回此行所属的组的编号。注意：n必须为int类型。<br>2.假设需求：<br>根据部门求出每个部门的的平均工资，并且，平均工资对应到每一个员工数据的后边进行显示，目的是为了对比每个员工与部门平均工资。这样的需求通过正常的HQL实现不了。<br>3.数据准备：name，orderdate，cost<br>jack,2017-01-01,10<br>tony,2017-01-02,15<br>jack,2017-02-03,23<br>tony,2017-01-04,29<br>jack,2017-01-05,46<br>jack,2017-04-06,42<br>tony,2017-01-07,50<br>jack,2017-01-08,55<br>mart,2017-04-09,62<br>mart,2017-04-10,68<br>neil,2017-05-11,12<br>mart,2017-04-12,75<br>neil,2017-06-13,80<br>mart,2017-04-14,94<br>4创建表：<br>create table business(name string,orderdate string,cost int) row format delimited fields terminated by “\t”;<br>5加载数据<br>load data local inpath “/opt/data/business.txt” into table business;<br>6 按需求查询数据<br>(1)查询在2017年4月购买过的顾客以及总人数<br>select name,count(1) from business where substring(orderdate,1,7)=”2017-04” group by name;<br>Jack        1<br>Mart    4<br>select name,count(1) over() from business where substring(orderdate,1,7)=”2017-04” group by name;<br>Jack        2<br>Mart    2<br>over()只对聚合函数count(1)起作用，并且跟在聚合函数之后，这里的窗口大小根据分组进行，每个人的窗口都是一样的<br>(2)查询顾客每月的购买明细以及月购买总额<br>1.select *,sum(cost) over() from business<br>Jack    2017-01-01    10    661<br>Tony    2017-01-02    15    661<br>Jack    2017-02-03    23    661<br>…<br>此时的总额是全量，而不是每个人的，与需求不符<br>2.select month(orderdate) from business;<br>可以直接拿出月份<br>3.根据月份进行分区，每一个区就是一个月,也就意味着每个月是一个窗口<br>select *,sum(cost) over(distribute by month(orderdate)) from business<br>或者<br>select *,sum(cost) over(partition by month(orderdate)) from business<br>(3)上述的场景，要将cost按照日期进行累加（首先要进行排序）<br>select *,sum(cost) over(sort by orderdate rows between unbounded preceding and current row) from business<br>查询顾客每月的购买明细以及月购买总额,并且与前后两天消费进行累加<br>select *,sum(cost) over(sort by orderdate rows between 1 preceding and 1 following) from business<br>查出每一个人向前的消费累加情况<br>select *,sum(cost) over(distribute by name sort by orderdate rows between unbounded preceding and current row) from business<br>查出向后的消费累加情况<br>select *,sum(cost) over(sort by orderdate rows between current row and unbounded following) from business<br>(4)查询顾客上次的购买时间（首先进行分区，排序）在电商数据中往往查看页面跳转率，通过跳转率可以分析出页面布局是否合理等等或在其他行业的某些需求（比如查看并分析某个用户的消费水平等等）<br>select *,lag(orderdate,1) over(distribute by name sort by orderdate ) from business<br>分析跳转率<br>select *,lag(orderdate,1) over(distribute by name sort by orderdate )，lead(orderdate,1) over(distribute by name sort by orderdate )from business<br>(5)查询前20%时间的订单信息<br>select *,ntile(5) over(sort by orderdate) from business;<br>select * from(select name,orderdate,cost,ntile(5) over(order by orderdate) sorted from business) t where sorted = 1;</p>
+<p>Rank<br>1.函数说明<br>Rank()排序相同时会重复，总数不会变<br>Dense_rank()排序相同时会重复，总数会减少<br>Row_number() 会根据顺序计算</p>
+<p>举例：考试结果同分进行排名次，比如说两个人同分，按照姓名排序，分出第一和第二，还有一种是并列第一，那么对于第二名来讲分两种情况，一种是同分的排一起，第二名位居第二，另一种是第二名排在第三，接下来进行实际操作<br>2.数据准备<br>孙悟空    语文    87<br>孙悟空    数学    95<br>孙悟空    英语    68<br>大海    语文    94<br>大海    数学    56<br>大海    英语    84<br>宋宋    语文    64<br>宋宋    数学    86<br>宋宋    英语    84<br>婷婷    语文    65<br>婷婷    数学    85<br>婷婷    英语    78</p>
+<p>4.创建表<br>create table score(name string,subject string,score int) row format delimited fields terminated by “\t”;<br>5.加载数据<br>load data local inpath “/opt/data/score.txt” into table score;<br>6.查询<br>select * from score;<br>7.操作rank()<br>select *,rank() over() from score;<br>8.操作Row_number()<br>select *,Row_number() over() from score;<br>9.需求：<br>计算每门学科成绩排名<br>select name,subject,rank() over(partition by subject order by score), Dense_rank() over(partition by subject order by score),Row_number() over(partition by subject order by score)from score;<br>通过以下方式可以看出三个方法的区别：<br>select name,subject,rank() over(partition by subject order by score desc), Dense_rank() over(partition by subject order by score desc),Row_number() over(partition by subject order by score desc)from score;</p>
+<p>自定义函数<br>1)hive自带了一些函数，比如;max/min等，但是数量有限。自己可以通过自定义UDF来方便的扩展。<br>2)当hive提供的内置函数无法满足你的业务处理需要时，此时就可以考虑使用用户自定义函数（UDF）<br>3)根据用户自定义类别分为以下三种：</p>
+<p>(1)UDF（给一行数据返回一行数据）居多<br>一进一出<br>(2)UDAF(聚合函数)<br>多进一出<br>(3)UDTF（给一行返回多行数据，比如explode函数）<br>一进多出<br>4)官方文档地址<br><a href="https://cwiki.apache.org/confluence/display/Hive/HivePlugins" target="_blank" rel="noopener">https://cwiki.apache.org/confluence/display/Hive/HivePlugins</a><br>5)编程步骤：<br>(1)继承org.apache.hadoop.hive.ql.UDF<br>(2)需要实现evaluate函数；evaluate函数支持重载<br>(3)在hive的命令行窗口创建函数<br>A)添加jar<br>add jar linux_jar_path<br>B)创建function<br>create [temporary] function [dname.]function_name as class_name;<br>(4)在hive的命令行窗口删除函数<br>drop [temporary] function [if exists] [dname.]function_name;</p>
+<p>6)注意事项<br>(1)UDF必须要有返回类型，可以返回null，但是返回类型不能为void；</p>
+<p>7.3 自定义UDF函数<br>1.创建一个maven工程hive<br><groupid>com.haitong</groupid><br><artifactid>hiveUDF</artifactid></p>
+<p>2.导入依赖<br><dependencies><br>    <dependency><br>        <groupid>org.apache.hive</groupid><br>        <artifactid>hive-exec</artifactid><br>        <version>2.3.6</version><br>    </dependency><br></dependencies><br>4.创建一个类<br>package com.haitong;<br>import org.apache.hadoop.hive.ql.UDF;<br>public class hiveUDF extends UDF {<br>    public String evaluate(final String s){<br>        if (s == null){<br>            return null;<br>        }<br>        return s.toLowerCase();<br>    }<br>}<br>5.打包<br>6.添加jar到hive<br>hive (default)&gt; add jar /opt/data/test-udf.jar;<br>7.创建function<br>hive (default)&gt; create temporary function mylower as “com.hive.hiveUDF”;<br>8.使用我们创建的函数</p>
+<h2 id="hive-default-gt-select-mylower-ename-from-emp1"><a href="#hive-default-gt-select-mylower-ename-from-emp1" class="headerlink" title="hive (default)&gt; select mylower(ename) from emp1;"></a>hive (default)&gt; select mylower(ename) from emp1;</h2>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/31/hadoop学习-三/" class="archive-article-date">
-  	<time datetime="2019-07-31T04:32:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/31/hadoop学习-三/">hadoop学习-三</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hive hadoop</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/27/hive-函数/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/29/hadoop学习-二/" class="archive-article-date">
-  	<time datetime="2019-07-29T00:20:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/27/hive-查询/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hive 查询</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/29/hadoop学习-二/">hadoop学习-二</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Hdoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/15/hadoop学习-一/" class="archive-article-date">
-  	<time datetime="2019-07-15T04:22:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/15/hadoop学习-一/">hadoop学习(一)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/07/记录Linux命令2/" class="archive-article-date">
-  	<time datetime="2019-07-07T14:08:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/07/记录Linux命令2/">记录Linux基础命令（二）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -343,8 +358,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

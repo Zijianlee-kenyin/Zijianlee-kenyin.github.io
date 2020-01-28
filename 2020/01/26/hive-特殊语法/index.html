@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/7 | KenyinBlog</title>
+  <title>hive 特殊语法 | KenyinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千里之行，始于足下；不积硅步，无以至千里">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KenyinBlog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/07/index.html">
+  <meta name="description" content="Hive数据类型 1.基本数据类型TINYINT,SAMLLINT,INT,BIGNINT,FLOAT,DOUBLE,DECEMAL,对于hive的Sring类型相当于sql里面的varchar2.时间类型TIMESTAMP 时间戳，DATE3.集合类型ARRAY—–包含同类型元素的数组，索引从0开始MAP—–字典类型，Map&amp;lt;primitive_type,data_type&amp;gt;STRU">
+<meta name="keywords" content="hive hadoop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hive 特殊语法">
+<meta property="og:url" content="http://yoursite.com/2020/01/26/hive-特殊语法/index.html">
 <meta property="og:site_name" content="KenyinBlog">
-<meta property="og:description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta property="og:description" content="Hive数据类型 1.基本数据类型TINYINT,SAMLLINT,INT,BIGNINT,FLOAT,DOUBLE,DECEMAL,对于hive的Sring类型相当于sql里面的varchar2.时间类型TIMESTAMP 时间戳，DATE3.集合类型ARRAY—–包含同类型元素的数组，索引从0开始MAP—–字典类型，Map&amp;lt;primitive_type,data_type&amp;gt;STRU">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-01-26T12:49:48.984Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KenyinBlog">
-<meta name="twitter:description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta name="twitter:title" content="hive 特殊语法">
+<meta name="twitter:description" content="Hive数据类型 1.基本数据类型TINYINT,SAMLLINT,INT,BIGNINT,FLOAT,DOUBLE,DECEMAL,对于hive的Sring类型相当于sql里面的varchar2.时间类型TIMESTAMP 时间戳，DATE3.集合类型ARRAY—–包含同类型元素的数组，索引从0开始MAP—–字典类型，Map&amp;lt;primitive_type,data_type&amp;gt;STRU">
   
     <link rel="alternative" href="/atom.xml" title="KenyinBlog" type="application/atom+xml">
   
@@ -153,174 +155,198 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-hive-特殊语法" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hive 特殊语法
+    </h1>
+  
+
+        
+        <a href="/2020/01/26/hive-特殊语法/" class="archive-article-date">
+  	<time datetime="2020-01-26T05:57:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hive数据类型"><a href="#Hive数据类型" class="headerlink" title="Hive数据类型"></a>Hive数据类型</h2><hr>
+<p>1.基本数据类型<br>TINYINT,SAMLLINT,INT,BIGNINT,FLOAT,DOUBLE,DECEMAL,对于hive的Sring类型相当于sql里面的varchar<br>2.时间类型<br>TIMESTAMP 时间戳，DATE<br>3.集合类型<br>ARRAY—–包含同类型元素的数组，索引从0开始<br>MAP—–字典类型，Map&lt;primitive_type,data_type&gt;<br>STRUCT—–结构体 STRUCT&lt;col_name:data_type[commentcol_comment],…&gt; 对原数据列向看待。<br>PS:<br>Hive中的原子数据类型是可以进行隐式转换的，类似于java的类型转换，例如某表达式使用int类型，TINYINT会自动转化成INT类型，但是hive不会进行反向转化，例如：某表达式使用TINYINT类型，INT不会自动转化成TINYINT类型，它会返回错误，除非使用cast操作。<br>1.隐式类型转化规则如下：<br>(1)任何整数类型都可以隐式的转化成一个范围更广的类型，如TINYINT可以转化成INT，INT可以转化成BIGINT。<br>(2)所有整数类型、FLOAT和STRING类型都可以隐式的转化成DOUBLE。<br>(3)TINYINT、INT、SMALLINT都额可以转化为FLOAT<br>(4)BOOLEAN类型不可以转化为任何其它的类型<br>2.可以使用cast将字符串转化成整数，例如CAST(“1” AS　INT),如果强制类型转化失败，如CAST(“X” AS　INT)，表达式返回空值。<br>4.范例<br>首先是Map类型<br>create table test_map(name string, score map&lt;string,int&gt;)<br>ROW FORMAT DELIMITED<br>FIELDS TERMINATED BY ‘\t’<br>COLLECTION ITEMS TERMINATED BY ‘,’<br>MAP KEYS TERMINATED BY ‘:’</p>
+<p>测试数据<br>cat test<br>leilei 数学:99,语文:90,英语:96<br>lucy 数学:100,语文:85,英语:91</p>
+<p>将数据导入表中：<br>LOAD DATA LOCAL INPATH ‘/home/webopa/lei.wang/datas_test/test_map’ OVERWRITE INTO TABLE test_map;</p>
+<p>hive&gt; select * from test_map;<br>OK<br>leilei {“数学”:99,”语文”:90,”英语”:96}<br>lucy {“数学”:100,”语文”:85,”英语”:91}</p>
+<p>hive&gt; select ts.name,ts.score[‘数学’] from test_map ts;<br>Total jobs = 1<br>Launching Job 1 out of 1<br>…<br>Total MapReduce CPU Time Spent: 3 seconds 280 msec<br>OK<br>leilei 99<br>lucy 100</p>
+<p>Sturct类型</p>
+<p>建表语句<br>CREATE TABLE test_struct(name string,lable struct<a href="price:string,pay:string,num:int" target="_blank" rel="noopener">price:string,pay:string,num:int</a>)<br>ROW FORMAT DELIMITED<br>FIELDS TERMINATED BY ‘\t’<br>COLLECTION ITEMS TERMINATED BY ‘,’</p>
+<p>测试数据<br>cat test_struct<br>aaa cheap,imm,1<br>bbb high,imm,2</p>
+<p>将数据导入表中<br>LOAD DATA LOCAL INPATH ‘/home/webopa/lei.wang/datas_test/test_struct’ OVERWRITE INTO TABLE test_struct</p>
+<p>在表中查询<br>hive&gt; select * from test_struct;<br>OK<br>aaa {“price”:”cheap”,”pay”:”imm”,”num”:1}<br>bbb {“price”:”high”,”pay”:”imm”,”num”:2}<br>Time taken: 0.046 seconds, Fetched: 2 row(s)</p>
+<p>hive&gt; select name,lable.price from test_struct;<br>Total jobs = 1<br>Launching Job 1 out of 1<br>…<br>Total MapReduce CPU Time Spent: 1 seconds 270 msec<br>OK<br>aaa cheap</p>
+<h2 id="bbb-high"><a href="#bbb-high" class="headerlink" title="bbb high"></a>bbb high</h2><h2 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h2><hr>
+<p>默认创建的表都是所谓的管理表，也被称之为内部表。因为这种表，hive会（或多或少的）控制这数据的生命周期，hive默认情况下会将这些表的数据存储在由配置项hive.metastore.warehouse.dir所定义的目录的子目录下。当我们删除一个管理表时，hive也会删除这个表中的数据。例如：drop table test;发现表里面的数据也被删除了，所以内部表不适合和其他工具共享数据。</p>
+<p>因为是外部表，所以hive并非认为其完全拥有这份数据，删除表并不会删除掉数据，只删除描述表的元数据信息。</p>
+<p>1.分区</p>
+<p>分区表实质上就是对应一个HDFS文件系统上的独立的文件夹，该文件夹下是该分区所有的数据文件，hive中的分区就是分目录，把一个大的数据集根据业务需要分割成小的数据集，在查询是通过WHERE子句中的表达式选择查询所需要的指定的分区，这样的查询效率会提高很多。类似数据库中的索引</p>
+<p>范例：<br>分区的字段不能和表的字段一样<br>create table stu2_partition(id int,name string) partitioned by (month string) row format delimited fields terminated by ‘\t’;<br>load data local inpath ‘/opt/data/student.txt’ into table  stu2_partition partition (month=”201912”);</p>
+<p>删除分区：alter table stu_partition drop partition (month=”20191206”),partition (month=”20191207”);</p>
+<p>多级分区：create table stu_partition1(id int,name string) partitioned by (month string,day string) row format delimited fields terminated by ‘\t’;<br>load data local inpath ‘/opt/data/student.txt’ into table  stu_partition1 partition (month=”201912”,day=”03”);</p>
+<h2 id="select-from-stu-partition1-where-month-”201912”-and-day-”03”"><a href="#select-from-stu-partition1-where-month-”201912”-and-day-”03”" class="headerlink" title="select * from stu_partition1 where month=”201912” and day=”03” ;"></a>select * from stu_partition1 where month=”201912” and day=”03” ;</h2><h2 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h2><hr>
+<p>Hive&gt;load data [local] inpath “本地|hdfs上文件的全路径” overwrite into|into table 表名 [partition(col_name=value,……)];<br>(1)load data:表示加载数据，即加载数据操作的一个标识<br>(2)local:表示从本地加载数据（数据来源）到hive的某一张表，不写local表示从HDFS加载数据到hive表<br>(3)inpath:表示加载数据的具体路径<br>(4)overwrite table：表示现有的数据覆盖表中已有的数据<br>(5)into table：追加到表中<br>(6)表名：本次操作具体要操作的hive的表<br>(7)partition：上传到指定分区</p>
+<p>案例：<br>(1)create table student(id int,name string) partitioned by (month string) row format delimited fields terminated by “\t”;<br>加载本地数据：<br>(2)load data local inpath ‘/opt/data/student.txt’ into table student partition(month=’201912’);（在之前的数据上进行追加）<br>(3)load data local inpath ‘/opt/data/student.txt’ overwrite table student partition(month=201912);（将之前的数据进行覆盖）<br>加载hdfs的数据：<br>(1)dfs -put /opt/data/student.txt /;<br>(2)load data inpath ‘/student.txt’ into table student partition(month=’201912’);<br>根据查询结果创建表（查询的结果会添加到新创建的表中）<br>hive&gt; create table if not exists manager1 as select id,name from manager;<br>1.将查询的结果导出到本地(导出的数据没有格式)<br>Hive&gt;insert overwrite local directory ‘/opt/data/manager’ select * from manager;<br>2.将查询的结果格式化导出到本地<br>Hive&gt;insert overwrite local directory ‘/opt/data/manager’<br>row format delimited fields terminated by ‘\t’;<br>select * from manager<br>3.将查询结果导出到HDFS上（没有local）<br>Hive&gt;insert overwrite local directory ‘/manager’<br>row format delimited fields terminated by ‘\t’;<br>select * from manager<br>Hive&gt;dfs -get /user/hive/warehouse/manager /opt/data/manager.txt<br>注意：truncate只能清除管理表，不能删除外部表中的数据<br>Hive&gt; truncate table manager;</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/31/hadoop学习-三/" class="archive-article-date">
-  	<time datetime="2019-07-31T04:32:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/31/hadoop学习-三/">hadoop学习-三</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hive hadoop</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/26/hive-特殊语法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/29/hadoop学习-二/" class="archive-article-date">
-  	<time datetime="2019-07-29T00:20:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/01/27/hive-查询/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          hive 查询
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/11/25/hive搭建/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hive搭建</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/29/hadoop学习-二/">hadoop学习-二</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Hdoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/15/hadoop学习-一/" class="archive-article-date">
-  	<time datetime="2019-07-15T04:22:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/15/hadoop学习-一/">hadoop学习(一)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/07/记录Linux命令2/" class="archive-article-date">
-  	<time datetime="2019-07-07T14:08:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/07/记录Linux命令2/">记录Linux基础命令（二）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -343,8 +369,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
