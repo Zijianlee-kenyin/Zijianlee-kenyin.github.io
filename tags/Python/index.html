@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>hive 查询 | KenyinBlog</title>
+  <title>Tag: Python | KenyinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Hive查询 查询语句语法SELECT [ALL | DISTINCT] select_expr, select_expr, … FROM table_reference [WHERE where_condition] [GROUP BY col_list] [ORDER BY col_list] [CLUSTER BY col_list   | [DISTRIBUTE BY col_list]">
-<meta name="keywords" content="hive hadoop">
-<meta property="og:type" content="article">
-<meta property="og:title" content="hive 查询">
-<meta property="og:url" content="http://yoursite.com/2020/01/27/hive-查询/index.html">
+  <meta name="description" content="千里之行，始于足下；不积硅步，无以至千里">
+<meta property="og:type" content="website">
+<meta property="og:title" content="KenyinBlog">
+<meta property="og:url" content="http://yoursite.com/tags/Python/index.html">
 <meta property="og:site_name" content="KenyinBlog">
-<meta property="og:description" content="Hive查询 查询语句语法SELECT [ALL | DISTINCT] select_expr, select_expr, … FROM table_reference [WHERE where_condition] [GROUP BY col_list] [ORDER BY col_list] [CLUSTER BY col_list   | [DISTRIBUTE BY col_list]">
+<meta property="og:description" content="千里之行，始于足下；不积硅步，无以至千里">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-27T07:49:51.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hive 查询">
-<meta name="twitter:description" content="Hive查询 查询语句语法SELECT [ALL | DISTINCT] select_expr, select_expr, … FROM table_reference [WHERE where_condition] [GROUP BY col_list] [ORDER BY col_list] [CLUSTER BY col_list   | [DISTRIBUTE BY col_list]">
+<meta name="twitter:title" content="KenyinBlog">
+<meta name="twitter:description" content="千里之行，始于足下；不积硅步，无以至千里">
   
     <link rel="alternative" href="/atom.xml" title="KenyinBlog" type="application/atom+xml">
   
@@ -155,192 +153,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hive-查询" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      hive 查询
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/01/31/Python学习笔记1/" class="archive-article-date">
+  	<time datetime="2020-01-31T06:51:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-31</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/01/31/Python学习笔记1/">Python学习笔记1</a>
     </h1>
   
 
-        
-        <a href="/2020/01/27/hive-查询/" class="archive-article-date">
-  	<time datetime="2020-01-27T06:40:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Hive查询"><a href="#Hive查询" class="headerlink" title="Hive查询"></a>Hive查询</h2><hr>
-<p>查询语句语法<br>SELECT [ALL | DISTINCT] select_expr, select_expr, …<br> FROM table_reference<br> [WHERE where_condition]<br> [GROUP BY col_list]<br> [ORDER BY col_list]<br> [CLUSTER BY col_list<br>   | [DISTRIBUTE BY col_list] [SORT BY col_list]<br> ]<br> [LIMIT number]</p>
-<p>1.全表查询<br>Hive&gt; select * from emp1;<br>2.选择特定的列查询<br>Hive&gt;select ename,empno from emp1;<br>注意：<br>(1)SQL语句大小写不敏感<br>(2)Sql 可以写在一行或者多行<br>(3)关键字不能被缩写也不能分行<br>(4)各子句一般要进行分行写<br>(5)使用缩进提高语句的可读性<br>4.2.3列别名<br>1.重命名一个列<br>2.便于计算<br>3.紧跟列名，也可以在列名和别名之间加入关键字as<br>4.案例实操<br>查询名称和部门<br>Hive&gt; select ename as name,deptno dn from emp1;</p>
-<p>常用函数<br>1.求总行数（count）<br>Hive&gt; select count(*) from emp1;<br>2.求工资的最大值（max）<br>Hive&gt; select max(sal) from emp1;<br>3.求工资的最小值（min）<br>Hive&gt; select min(sal) from emp1;<br>4.求工资的总和（sum）<br>Hive&gt; select sum(sal) from emp1;<br>5.求工资的平均值（avg）</p>
-<h2 id="Hive-gt-select-avg-sal-from-emp1"><a href="#Hive-gt-select-avg-sal-from-emp1" class="headerlink" title="Hive&gt; select avg(sal) from emp1;"></a>Hive&gt; select avg(sal) from emp1;</h2><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><hr>
-<p>Sort by: 每个reduce内部排序,对全局结果集来说不是排序；<br>1.设置reduce个数<br>hive (default)&gt; set mapreduce.job.reduces=3;<br>2.查看设置reduce个数<br>hive (default)&gt; set mapreduce.job.reduces;<br>3.根据部门编号降序查看员工信息<br>hive (default)&gt; select * from emp1 e sort by e.empno desc;<br>4.将查询结果导入到文件中（按照部门编号降序）<br>hive (default)&gt; insert overwrite local directory ‘/opt/data/sortby_result’ select * from emp1 e sort by e.empno desc;</p>
-<p>分区排序（distribute by）<br>distribute by;类似MR中的partition，进行分区，结合sort by使用。<br>按照指定的字段对数据进行划分到不同的输出reduce<br>注意：hive要求distribute by语句在sort by之前。<br>对于distribute by进行测试，一定要分配多个reduce进行处理，否则无法看到distribute by效果。<br>案例实操：<br>(1)先按照部门编号进行分区，再按照员工编号进行降序排序<br>hive (default)&gt; set mapreduce.job.reduces=3;<br>(2)hive (default)&gt; insert overwrite local directory ‘/opt/data/distribute_result’ select * from emp1 e distribute by e.deptno sort by e.empno desc;<br>(3)如果在跑任务的时候发现资源不够执行作业，可以设置成本地模式来执行任务：<br>hive (default)&gt; set hive.exec.mode.local.auto=true;</p>
-<p>当didtribute by和sort by字段相同的时候，可以使用cluster by。<br>cluster by除了具有didtribute by功能外还具有sort by的功能，但是排序只能是倒序排。<br>(1)以下两种写法等价<br>hive (default)&gt; select * from emp1 cluster by deptno;<br>hive (default)&gt; select * from emp1 distribute by deptno sort by deptno;<br>注意：按照部门编号分区，不一定就是固定的死值，可以是20号和30号部门分到一个分区里面去。</p>
-<h2 id="2-总结order-by，sort-by，cluster-by，didtribute-by-sort-by区别"><a href="#2-总结order-by，sort-by，cluster-by，didtribute-by-sort-by区别" class="headerlink" title="(2)总结order by，sort by，cluster by，didtribute by+ sort by区别"></a>(2)总结order by，sort by，cluster by，didtribute by+ sort by区别</h2><h2 id="分桶"><a href="#分桶" class="headerlink" title="分桶"></a>分桶</h2><hr>
-<p>分区针对的是数据的存储路径；分桶针对的是数据文件。<br>分区提供一个隔离数据和优化查询的便利方式。不过，并非所有的数据集都可以形成合理的分区，特别是之前所提到的要确定合适的划分大小这个疑虑。<br>    分桶是将数据集分解成更容易管理的若干部分的另一个技术。<br>好处：<br>1、方便抽样</p>
-<p>2、提高join查询效率</p>
-<p>（1）获得更高的查询处理效率。桶为表加上了额外的结构，Hive 在处理有些查询时能利用这个结构。具体而言，连接两个在（包含连接列的）相同列上划分了桶的表，可以使用 Map 端连接 （Map-side join）高效的实现。比如JOIN操作。对于JOIN操作两个表有一个相同的列，如果对这两个表都进行了桶操作。那么将保存相同列值的桶进行JOIN操作就可以，可以大大较少JOIN的数据量。</p>
-<p>（2）使取样（sampling）更高效。在处理大规模数据集时，在开发和修改查询的阶段，如果能在数据集的一小部分数据上试运行查询，会带来很多方便。<br>1.先创建分桶表，通过直接导入数据文件的方式<br>(1)数据准备<br>student_bucket.txt<br>(2)创建分桶表<br>hive (default)&gt; create table stu_bucket(id int,name string) clustered by(id) into 4 buckets row format delimited fields terminated by ‘\t’;<br>(3)加载数据<br>hive (default)&gt; load data local inpath ‘/opt/data/student_bucket.txt’ into table stu_bucket;<br>(4)如果加载数据时报如下错，请使用以下形式进行设置（只是针对2.0版本，这是因为hive中为了避免因为某一些操作导致资源开销过大进行的优化，在1.0版本没有此机制）或者直接使用insert形式加载数据</p>
-<p>hive (default)&gt; set hive.mapred.mode=unstrict;<br>注意：这种形式在加载数据的时候不进行分桶<br>(5)查询数据<br>hive (default)&gt; select * from stu_bucket;<br>(7)分桶，使用insert进行插入数据<br>1）清除之前的数据<br>hive (default)&gt; truncate table stu_bucket;<br>2）创建一个普通表<br>hive (default)&gt; create table stu(id int,name string) row format delimited fields terminated by ‘\t’;<br>3）加载数据到stu表<br>hive (default)&gt; load data local inpath ‘/opt/data/student_bucket.txt’ into table stu;<br>4）设置是否分桶属性(1.0版本需要设置,2.0版本移除了此设置)<br>hive (default)&gt; set hive.enforce.bucketing=true;<br>5) 使用insert进行加载数据<br>hive (default)&gt; insert into table stu_bucket select * from stu;</p>
-<p>分桶抽样查询<br>对于非常大的数据集，有时候用户需要使用的是具有代表性的查询结果而不是全部的数据结果。在hive中可以通过where对分区数据进行操作，而分桶不行。Hive可以通过对表进行抽样来满足这个需求。</p>
-<p>查询表stu_bucket中的数据：<br> [root@master ~]# select * from stu_buck tablesample(bucket 1 out of 4 on id);<br>注意：tablesample是抽样语句，语法：TABLESAMPLE(BUCKET X OUT OF Y)。</p>
-<p>Y必须是table总bucket数的倍数或者因子。当然奇数也可以，但是由于不符合规则，数据不好看，没有可读性。Hive根据y的大小，决定抽样的比例。例如，table总共分了4份，当y=2时，抽取（4/2=2）个bucket的数据，当y=8时，抽取(4/8=1/2)个bucket的数据。<br>X表示从哪个bucket开始抽取，如果需要取多个分区，以后的分区号为当前分区号加上y。例如，table总bucket数为4，tablesample(bucket 1 out of 2 )，表示总共抽取（4/2=2）个bucket的数据，抽取第1（X）个和第4（X+Y）个bucket的数据。</p>
-<h2 id="注意：x的值必须小于等于y的值。否则会返回失败"><a href="#注意：x的值必须小于等于y的值。否则会返回失败" class="headerlink" title="注意：x的值必须小于等于y的值。否则会返回失败"></a>注意：x的值必须小于等于y的值。否则会返回失败</h2>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hive hadoop</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/27/hive-查询/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/01/27/hive-函数/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          hive 函数
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/01/26/hive-特殊语法/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">hive 特殊语法</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -363,9 +229,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

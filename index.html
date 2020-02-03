@@ -155,6 +155,172 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python学习笔记1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/31/Python学习笔记1/">Python学习笔记1</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/31/Python学习笔记1/" class="archive-article-date">
+  	<time datetime="2020-01-31T06:51:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Python-环境搭建"><a href="#Python-环境搭建" class="headerlink" title="Python 环境搭建"></a>Python 环境搭建</h2><hr>
+<p>python下载地址：打开 WEB 浏览器访问 <a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">https://www.python.org/downloads/windows/</a> ，一般就下载 executable installer，x86 表示是 32 位机子的，x86-64 表示 64 位机子的。<br>安装的时候记得勾选 Add Python X.XX to PATH，没有勾选的话就要自己去配置环境变量。<br>安装完成按win+R键，输入cmd调出控制台，输入python，若进入&gt;&gt;&gt;的命令行则说明python安装成功了。</p>
+<p>安装集成开发环境（IDE）：很少直接在命令行写代码，只有运行python脚本的时候才这样做。复杂的代码都是在IDE中进行编写。<br>常用的IDE有PyCharm，PyCharm 下载地址 : <a href="https://www.jetbrains.com/pycharm/download/" target="_blank" rel="noopener">https://www.jetbrains.com/pycharm/download/</a></p>
+<h2 id="有专业版和社区版。"><a href="#有专业版和社区版。" class="headerlink" title="有专业版和社区版。"></a>有专业版和社区版。</h2><h2 id="Python的用途"><a href="#Python的用途" class="headerlink" title="Python的用途"></a>Python的用途</h2><hr>
+<h2 id="web开发（国内不火），数据分析、数据挖掘、人工智能，自动化运维"><a href="#web开发（国内不火），数据分析、数据挖掘、人工智能，自动化运维" class="headerlink" title="web开发（国内不火），数据分析、数据挖掘、人工智能，自动化运维"></a>web开发（国内不火），数据分析、数据挖掘、人工智能，自动化运维</h2><h2 id="Python基本语法"><a href="#Python基本语法" class="headerlink" title="Python基本语法"></a>Python基本语法</h2><hr>
+<p>为什么上来就是直接实战呢，我觉得python相较于其他编程语言，语法确实简洁了许多，而且基础语法的讲解网上资料非常的多<br>可以去 <a href="https://www.runoob.com/python3/python3-basic-syntax.html" target="_blank" rel="noopener">https://www.runoob.com/python3/python3-basic-syntax.html</a> 菜鸟教程了解一下。<br>语法落实到项目中理解效果会高得多。</p>
+<p>Python工具库：python的工具库非常多，基本上想到的都有，各大公司的开源工具库都有python接口，用python干活<br>其实是调用各种工具库来帮我们完成任务。</p>
+<h2 id="所以我们只需要了解基本语法后来按需求学习这些工具库的用法就行"><a href="#所以我们只需要了解基本语法后来按需求学习这些工具库的用法就行" class="headerlink" title="所以我们只需要了解基本语法后来按需求学习这些工具库的用法就行"></a>所以我们只需要了解基本语法后来按需求学习这些工具库的用法就行</h2><h2 id="了解科学计算库Numpy"><a href="#了解科学计算库Numpy" class="headerlink" title="了解科学计算库Numpy"></a>了解科学计算库Numpy</h2><hr>
+<p>Numpy计算库，内置了许多计算的函数，特点是把数据读取成矩阵来进行数据处理，效率高。<br>pycharm安装Numpy库，这些第三方库都是要自己安装的。pycharm可以点击file-&gt;settings-&gt;project:python-&gt;project interpreter,点击右上角+号，搜索numpy，勾选版本号，点击install package。等待安装完成即可。</p>
+<p>造数据<br>新建一个world_alcohol.txt的文档，写入数据<br>Year,WHO region,Country,Beverage Types,Display Value<br>1986,Western Pacific,Viet Nam,Wine,0<br>1986,Americas,Uruguay,Other,0.5</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np #这是单行注释语法带个井号，这句代码就是引用numpy库并且给它加个别名</span><br><span class="line">world_alcohol = np.genfromtxt(&quot;world_alcohol.txt&quot;,delimiter=&quot;,&quot;,dtype=str)</span><br><span class="line">print(type(world_alcohol))</span><br><span class="line">print(world_alcohol)</span><br><span class="line">print(help(np.genfromtxt))</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">这是多行注释，用三个单引号括起来。</span><br><span class="line">这段代码的意思就是读取world_alcohol.txt中每行的数据，每个元素按照逗号来进行分割，分割后读取的最小单位数据类型为字符串类型，把读取的数据复制给一个变量</span><br><span class="line">接下来打印一下这个变量的类型和里面的数据</span><br><span class="line">help方法就是打印一下这个方法的使用范例</span><br><span class="line">&apos;&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<p>前两个打印方法的打印结果<br>&lt;class ‘numpy.ndarray’&gt;<br>[[‘Year’ ‘WHO region’ ‘Country’ ‘Beverage Types’ ‘Display Value’]<br> [‘1986’ ‘Western Pacific’ ‘Viet Nam’ ‘Wine’ ‘0’]<br> [‘1986’ ‘Americas’ ‘Uruguay’ ‘Other’ ‘0.5’]]</p>
+<h2 id="这结果说明改变量是一个ndarray类型，是numpy的核心数据类型，而打印出来的数据像是由中括号构成的数组，我们可以把它当成数学中的矩阵来看待，这就是一个二维矩阵。"><a href="#这结果说明改变量是一个ndarray类型，是numpy的核心数据类型，而打印出来的数据像是由中括号构成的数组，我们可以把它当成数学中的矩阵来看待，这就是一个二维矩阵。" class="headerlink" title="这结果说明改变量是一个ndarray类型，是numpy的核心数据类型，而打印出来的数据像是由中括号构成的数组，我们可以把它当成数学中的矩阵来看待，这就是一个二维矩阵。"></a>这结果说明改变量是一个ndarray类型，是numpy的核心数据类型，而打印出来的数据像是由中括号构成的数组，我们可以把它当成数学中的矩阵来看待，这就是一个二维矩阵。</h2><hr>
+<p>上面的例子是IO操作，把文档的内容转换为矩阵。在numpy中构造矩阵的方法还有其他，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">vector = np.array([5,10,15,20])</span><br><span class="line">matrix = np.array([[5,10,15],[20,25,30],[35,40,45]])</span><br><span class="line">print(vector)</span><br><span class="line">print(matrix)</span><br><span class="line">print(vector.shape)</span><br><span class="line">print(matrix.shape)</span><br><span class="line">#这段代码用来构造一维矩阵和二维矩阵,三维矩阵如此类推；shape方法就是用来表示矩阵的长和宽，当然这是在二维矩阵的情况下，它更多的用处是用来表示一个矩阵的形状，比如知道一个矩阵的长宽，脑海中就有个矩形的印象。</span><br></pre></td></tr></table></figure>
+
+<p>当然为了让矩阵更容易进行数据处理，numpy构造的矩阵里面的元素必须是同一数据类型的，若出现同一矩阵里面的元素有两种数据类型，则进行类型转换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">numberA = np.array([1,2,3,4])</span><br><span class="line">numberB = np.array([1,2,3,4.0])</span><br><span class="line">numberC = np.array([1,2,3,&apos;4&apos;])</span><br><span class="line">print(numberA)</span><br><span class="line">print(numberB)</span><br><span class="line">print(numberC)</span><br><span class="line">numberA.dtype</span><br><span class="line">numberB.dtype</span><br><span class="line">numberC.dtype</span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<p>以上就是简单的构造矩阵，对于矩阵中数据的读取其实跟直角坐标系差不多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line">world_alcohol = np.genfromtxt(&quot;world_alcohol.txt&quot;,delimiter=&quot;,&quot;,dtype=str,skip_header=1)</span><br><span class="line">print(world_alcohol)</span><br><span class="line">#在原来的练习数据中，如果我们想要获得Wine这个值，我们只需要在该矩阵的后面跟上这个值所在的坐标值就可以了。当然专业点，可以叫这个值为索引，正如数学上的坐标轴，它们的起始值均为0.</span><br><span class="line">display = world_alcohol[0,3] #索引第一个值代表矩阵的Y轴坐标也就是宽所在的轴，第二个值是X轴的值。</span><br><span class="line">print(display)</span><br></pre></td></tr></table></figure>
+
+<p>矩阵的构造除了通过初始化定义还可以通过切片处理还形成新的矩阵</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">vector = np.array([5,10,15,20])</span><br><span class="line">print(vector[0:3])  #[5 10 15] 意思是从0:3这个左开右闭区间中获取l索引值为0,1,2的值</span><br><span class="line">matrix = np.array([[5,10,15],[20,25,30],[35,40,45]])</span><br><span class="line">print(matrix[:,1]) # [10 25 40] 意思是 ：冒号代表所有匹配，那就是说先匹配所有行，再获取列索引值为0的值</span><br><span class="line">print(matrix[:,0:2])</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">[</span><br><span class="line">[5 10]</span><br><span class="line">[20 25]</span><br><span class="line">[35 40]</span><br><span class="line">]</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line">print(matrix[1:3,0:2])</span><br></pre></td></tr></table></figure>
+
+<p>numpy相比于其他语言的数据类型更多了一项布尔索引的玩意儿。布尔索引也可以当用切片用的索引值来构造新的矩阵。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np </span><br><span class="line">vector = np.array([5,10,15,20])</span><br><span class="line">vector == 10</span><br><span class="line"># array([false,true,false,false],dtype=bool) 这个判断是针对矩阵中所有元素进行一次判断，再把得到的布尔值按照原来矩阵的形状来组合一起形成一个新的布尔矩阵，那么这个矩阵中的布尔索引值就</span><br><span class="line">#可以代替原来矩阵中的索引值</span><br><span class="line">equal_to_ten = (vector==10)</span><br><span class="line">print equal_to_ten</span><br><span class="line">print(vector[equal_to_ten])</span><br><span class="line"></span><br><span class="line">matrix = np.array([[5,10,15],[20,25,30],[35,40,45]])</span><br><span class="line">second_colmun = (matrix[:,1] == 25) #那这句的意思就是匹配所有行，在第二列的元素中判断等于25的元素，那其实就是一个[false,true,false]的矩阵</span><br><span class="line">print(matrix[second_colmun,:])#把这个矩阵放到原矩阵的行元素中匹配就成了匹配25所在的列元素。</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/31/Python学习笔记1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-flume" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/28/flume/">flume</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/28/flume/" class="archive-article-date">
+  	<time datetime="2020-01-28T04:52:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/28/flume/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hive-函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1089,222 +1255,10 @@ visudo：用于配置哪些用户允许越权执行哪些命令
 
 
   
-    <article id="post-记录Linux基础命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/30/记录Linux基础命令/">记录Linux基础命令（一）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/30/记录Linux基础命令/" class="archive-article-date">
-  	<time datetime="2019-06-30T07:35:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Linux基础命令结构"><a href="#Linux基础命令结构" class="headerlink" title="Linux基础命令结构"></a>Linux基础命令结构</h1><pre><code>linux：一切皆文件</code></pre><hr>
-<pre><code>ls     //显示当前目录下不隐藏的文件和文件夹。
-ls -a  //显示当前目录下所有的文件和文件夹（包括被隐藏的）
-ls -l  //显示当前目录下不隐藏的文件和文件夹的详细信息
-ls -al //显示当前目录下所有的文件和文件夹（包括被隐藏的）的详细信息</code></pre><hr>
-<pre><code>cd $dir_path    //打开当前目录
-/  斜杠开头表示根目录
-.  表示当前目录
-.. 表示上一级目录</code></pre><hr>
-<h1 id="Linux管理命令"><a href="#Linux管理命令" class="headerlink" title="Linux管理命令"></a>Linux管理命令</h1><h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><hr>
-<h4 id="文件："><a href="#文件：" class="headerlink" title="文件："></a>文件：</h4><pre><code>touch $file_path touch空格加文件目录
-touch opt/hellow.txt</code></pre><hr>
-<h4 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h4><pre><code>mkdir $dir_path    创建一个新的目录在当前路径下，但是如果目标目录前存在没有的目录则创建失败，不可以在不存在的目录下创建新的目录。
-mkdir -p $dir_path  [-p]是递归，这样就能解决上述创建目录遇到的问题，如果遇到不存在的目录则创建新的目录直至达到目标目录。</code></pre><hr>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><pre><code>rm [-rf] $file_path
--r 递归删除目录时使用
--f 免确认
-禁止使用 rm -rf /</code></pre><hr>
-<h3 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h3><pre><code>vim $file_path
-刚进入是命令模式
-            G：跳转到文件最后一行
-            gg：跳转到文件的第一行
-                100gg：光标跳转到100行
-            i：进入编辑模式
-            dd：剪切当前行
-                10dd：剪切从当前行开始的10行
-            yy：复制当前行
-                5yy：复制从当前行开始的5行
-            p：粘贴
-            o：在下一行插入
-            O：在上一行插入
-            A：跳转到行尾部，并进入插入模式
-            u：回退
-编辑模式
-            esc：返回命令模式
-文件编辑结束按esc返回命令模式，使用shift+：，等待命令行出现&quot;:&quot;,输入
-w 保存
-q 退出
-wq 保存并退出
-！ 强制的
-wq! 强制保存退出
-x 保存退出
-X 加密，等待输入密码（慎用，要记住密码）
-注意 不要使用vim 创建一个空的文件，然后用编辑工具打开。</code></pre><hr>
-<h3 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h3><pre><code>cat $filename 一次显示整个文件
--n 或 –number 由 1 开始对所有输出的行数编号
--b 或 –number-nonblank 和 -n 相似，只不过对于空白行不编号
--s 或 –squeeze-blank 当遇到有连续两行以上的空白行，就代换为一行的空白行
--v 或 –show-nonprinting
-more：分页查看，不可回退
-    翻到最后一页自动退出
-less：分页查看，可回退
-    按q手动退出
-head：查看文件的前n行,n默认为10
-    head /etc/passwd
-    head -5 /etc/passwd
-tail：查看文件的末尾n行，n默认也是10
-    tail -[nf]  $file_path
-    f：动态显示文件的末尾变化</code></pre><hr>
-<h3 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h3><pre><code>cp [-r] $sourcePath... $targetPath r：用于复制文件夹时使用，代表递归</code></pre><hr>
-<h3 id="剪切-重命名"><a href="#剪切-重命名" class="headerlink" title="剪切/重命名"></a>剪切/重命名</h3><pre><code>mv $sourcePath $targetPath</code></pre><hr>
-<h3 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h3><pre><code>zip
-    zip/unzip
-gzip；最常用的压缩格式
-    gzip/gunzip
-bzip2：主要压缩大文件
-    bzip2/bunzip2
-
-缺点：不能对目录进行压缩，只能压缩文件
-
-tar：打包命令，可以将目录打包成一个文件
-    c：打包
-    x：解包
-    z：gzip格式
-    f：档名
-    j：bzip2格式
-    v：显示打包或者解包的过程
-    t：查看一个压缩文件的内容
-    -C ：解压到什么地方
-
-    压缩范例：tar -cvf jpg.tar *.jpg //将目录里所有jpg文件打包成jpg.tar 
-             tar -zcvf /big.tar.gz /opt/bigC/bigD/bigE将bigE目录打包成一个gizp格式的压缩文件放在/目录下</code></pre><hr>
-<pre><code>解压范例：tar -xvf file.tar //解压 tar包
-         tar -xzvf file.tar.gz //解压tar.gz
-         unrar e file.rar //解压rar
-         unzip file.zip //解压zip
-         tar -zxvf bigE.tar.gz -C /opt</code></pre><hr>
-<h3 id="查看-1"><a href="#查看-1" class="headerlink" title="查看"></a>查看</h3><pre><code>find 路径范围 查询的条件
-
-=&gt;在/中查找名称中带有init的文件或者目录
-    find / -name *init* 
-
-使用find时，不建议使用/作为查找范围，因为一层层查找
-查询条件：
-    -name：按名称查找
-    -size：按大小查找
-        默认的单位是块（512字节），可以指定K、M、G
-        -10:小于10个块的大小
-        +10:大于10个块的大小
-        -o：表示或者
-        -a：并且
-        find /etc -size +1000 -a -size -1100
-    -type：按类型查找
-        f：文件
-        d：目录
-    -user：按用户查找
-
-    find /etc/ -size +1000 -a -name *init*
-    man：用于查询某个命令的使用文档
-    man $command
-    du：统计目录或者文件的大小
-    du [-sh] $dir_path
-    s：统计总和
-    h：人性化显示单位
-
-    du -sh /opt/
-    wc：用于统计文件中的单词、行、字符数
-    wc [-wcl] $file_path</code></pre><hr>
-<h1 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h1><pre><code>linux是一个多用户的管理系统
-    两类用户：
-        管理员：
-            默认是一个叫root的用户
-            大部分的管理操作都只能由管理员来执行
-            软件安装、用户的管理、修改系统的属性……
-        普通用户：
-            普通用户的家目录：/home/$username
-    创建用户：
-        useradd -[g] $username
-        useradd haitong
-        g：指定用户属于哪个组的id
-    设置密码：
-        passwd $username
-        passwd haitong
-    Linux中管理用户的配置文件：/etc/passwd
-        root:x:0:0:root:/root:/bin/bash
-        用户名：密码：用户id：组id：组的名称：家目录：shell类型
-        普通用户的id都从500开始
-    删除用户：
-        userdel -r $username
-        r：表示删除用户时同时删除该用户的家目录
-    创建用户组：
-        groupadd $groupname
-    删除用户组
-        groupdel $groupname</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/30/记录Linux基础命令/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1398,7 +1352,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hive hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1407,10 +1369,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Hdoop</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hive hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
